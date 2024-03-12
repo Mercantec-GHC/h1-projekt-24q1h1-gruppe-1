@@ -75,13 +75,38 @@ namespace Domain_Models
         }
     }
 
+    public class WiredHeadphones : Headset
+    {
+        public WiredHeadphones(string brand, string color, int frequencyRange, bool microphone,
+           string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition, string cableType)
+           : base(brand, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closeOrOpen, itemCondition)
+        {
+            Cabletype = cableType;
+        }
+
+        private string Cabletype {set; get; }
+
+        public string GetCabletype() 
+        {
+            return Cabletype; 
+        }  
+    }
+
     public class BluetoothHeadphones : Headset
     {
         public BluetoothHeadphones(string brand, string color, int frequencyRange, bool microphone,
-            string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition) 
+            string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition, double bluetoothVersion) 
             : base (brand, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closeOrOpen, itemCondition)
         {
+            BluetoothVersion = bluetoothVersion;
+        }
 
+        //Double da bluetooth kan være f.eks. 5.3
+        private double BluetoothVersion { set; get; }
+
+        public double GetBluetoothVersion()
+        {
+            return BluetoothVersion; 
         }
     }
 }
