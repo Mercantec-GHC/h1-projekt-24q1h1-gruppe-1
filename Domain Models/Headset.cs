@@ -63,8 +63,13 @@ namespace Domain_Models
         }
     }
 
-    public class HeadsetModel : Headset
+    public class BluetoothHeadphones : Headset
     {
+        public BluetoothHeadphones(string brand, string color, int frequencyRange, bool microphone,
+            string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition) 
+            : base (brand, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closeOrOpen, itemCondition)
+        {
 
+        }
     }
 }
