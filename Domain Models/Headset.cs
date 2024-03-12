@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,53 +9,64 @@ namespace Domain_Models
 {
     public abstract class Headset
     {
-        private string brand;
+        public Headset(string brand,string color,int frequencyRange,bool microphone,string typeOfConnection,bool noiseCancellation,string closeOrOpen,string itemCondition)
+        {
+            Brand = brand;
+            Color = color;
+            FrequencyRange = frequencyRange;
+            Microphone = microphone;
+            TypeOfConnection = typeOfConnection;
+            NoiseCancellation = noiseCancellation;
+            CloseOrOpen = closeOrOpen;
+            ItemCondition = itemCondition;
+        }
+        private string Brand;
 
         public string getBrand()
         {
-            return brand;
+            return Brand;
         }
 
-        private string color;
+        private string Color;
         public string getColor()
         {
-            return color;
+            return Color;
         }
 
-        private int frequencyRange;
+        private int FrequencyRange;
         public int getFrequencyRange()
         {
-            return frequencyRange;
+            return FrequencyRange;
         }
 
-        private bool microphone;
+        private bool Microphone;
         public bool getMicrophone()
         {
-            return microphone;
+            return Microphone;
         }
 
-        private string typeOfConnection;
+        private string TypeOfConnection;
         public string getTypeOfConnection()
         {
-            return typeOfConnection;
+            return TypeOfConnection;
         }
 
-        private bool noiseCancellation;
+        private bool NoiseCancellation;
         public bool getNoiseCanellation()
         {
-            return noiseCancellation;
+            return NoiseCancellation;
         }
 
-        private string closeOrOpen;
+        private string CloseOrOpen;
         public string getCloseOrOpen()
         {
-            return closeOrOpen;
+            return CloseOrOpen;
         }
 
-        private string itemCondition;
+        private string ItemCondition;
         public string getItemCondition()
         {
-            return itemCondition;
+            return ItemCondition;
         }
 
         public void getDetails()
