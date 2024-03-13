@@ -36,10 +36,10 @@ namespace Domain_Models
             this.noiseCancellation = noiseCancellation ;
             this.closeorOpen = closeOrOpen ;
             this.itemCondition = itemCondition ;
-            this.cableType = cableType ;
+            
         }
 
-        public virutal void DisplayHeadsets()
+        public virutal void DisplayHeadset()
         {
             Console.WriteLine($"{this.brand}");
             Console.WriteLine($"{this.model}");
@@ -50,18 +50,24 @@ namespace Domain_Models
             Console.WriteLine($"{this.noiseCancellation}");
             Console.WriteLine($"{this.closeorOpen}");
             Console.WriteLine($"{this.itemCondition}");
-            Console.WriteLine($"{this.cableType}");
+            
 
         }
     } 
     
     public class WiredHeadphones : Headset
     {
+        public string cableType { get; set; }
         public WiredHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
            string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition, string cableType)
            : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closeOrOpen, itemCondition)
         {
 
+        }
+        public override void DisplayHeadset()
+        {
+            base.DisplayHeadset()
+            Console.WriteLine($"The cable is{this.cableType}");
         }
       
     }
@@ -76,9 +82,9 @@ namespace Domain_Models
         {
 
         }
-        public override void DisplayHeadsets()
+        public override void DisplayHeadset()
         {
-            base.DisplayHeadsets()
+            base.DisplayHeadset()
             Console.WriteLine($"This headset comes with {bluetoothVersion}");
         }
 
