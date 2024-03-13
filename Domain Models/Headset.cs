@@ -9,9 +9,10 @@ namespace Domain_Models
 {
     public abstract class Headset
     {
-        public Headset(string brand,string color,int frequencyRange,bool microphone,string typeOfConnection,bool noiseCancellation,string closeOrOpen,string itemCondition)
+        public Headset(string brand, string model,string color,string frequencyRange,bool microphone,string typeOfConnection,bool noiseCancellation,string closeOrOpen,string itemCondition)
         {
             Brand = brand;
+            Model = model;
             Color = color;
             FrequencyRange = frequencyRange;
             Microphone = microphone;
@@ -27,14 +28,21 @@ namespace Domain_Models
             return Brand;
         }
 
+        private string Model;
+
+        public string getModel()
+        {
+           return Model;
+        }
+
         private string Color;
         public string getColor()
         {
             return Color;
         }
 
-        private int FrequencyRange;
-        public int getFrequencyRange()
+        private string FrequencyRange;
+        public string getFrequencyRange()
         {
             return FrequencyRange;
         }
@@ -77,9 +85,9 @@ namespace Domain_Models
 
     public class WiredHeadphones : Headset
     {
-        public WiredHeadphones(string brand, string color, int frequencyRange, bool microphone,
+        public WiredHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
            string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition, string cableType)
-           : base(brand, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closeOrOpen, itemCondition)
+           : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closeOrOpen, itemCondition)
         {
             Cabletype = cableType;
         }
@@ -94,9 +102,9 @@ namespace Domain_Models
 
     public class BluetoothHeadphones : Headset
     {
-        public BluetoothHeadphones(string brand, string color, int frequencyRange, bool microphone,
+        public BluetoothHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
             string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition, double bluetoothVersion) 
-            : base (brand, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closeOrOpen, itemCondition)
+            : base (brand,model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closeOrOpen, itemCondition)
         {
             BluetoothVersion = bluetoothVersion;
         }
