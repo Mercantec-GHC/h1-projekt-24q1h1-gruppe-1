@@ -9,79 +9,68 @@ namespace Domain_Models
 {
     public abstract class Headset
     {
-        public Headset(string brand, string model,string color,string frequencyRange,bool microphone,string typeOfConnection,bool noiseCancellation,string closeOrOpen,string itemCondition)
-        {
-            Brand = brand;
-            Model = model;
-            Color = color;
-            FrequencyRange = frequencyRange;
-            Microphone = microphone;
-            TypeOfConnection = typeOfConnection;
-            NoiseCancellation = noiseCancellation;
-            CloseOrOpen = closeOrOpen;
-            ItemCondition = itemCondition;
-        }
-        private string Brand;
+        public uint Id { get; set; }
+        private static uint lastId = 0;
+        public string Url { get; set; }
+        public string brand { get; set; }
+        public string model { get; set; }
+        public string color { get; set; }
+        public string frequencyRange { get; set; }
+        public bool microphone { get; set; }
+        string typeOfConnection { get; set; }
+        bool noiseCancellation { get; set; }
+        string closeorOpen { get; set; }
+        string itemCondition { get; set; }
+        string cableType { get; set; }
 
-        public string getBrand()
+        public Headset(string brand, string model, string color, string frequencyRange, bool microphone, string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition, string cableType)
         {
-            return Brand;
-        }
-
-        private string Model;
-
-        public string getModel()
-        {
-           return Model;
-        }
-
-        private string Color;
-        public string getColor()
-        {
-            return Color;
+            this.Url = $"headset/{lastId}";
+            Id = lastId++;
+            this.brand = brand ;
+            this.model = model ;
+            this.color = color ;
+            this.frequencyRange = frequencyRange ;
+            this.microphone = microphone ;
+            this.typeOfConnection = typeOfConnection ;
+            this.noiseCancellation = noiseCancellation ;
+            this.closeorOpen = closeOrOpen ;
+            this.itemCondition = itemCondition ;
+            this.cableType = cableType ;
         }
 
-        private string FrequencyRange;
-        public string getFrequencyRange()
+        protected Headset(string brand, string model, string color, string frequencyRange, bool microphone, string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition)
         {
-            return FrequencyRange;
+            this.brand = brand;
+            this.model = model;
+            this.color = color;
+            this.frequencyRange = frequencyRange;
+            this.microphone = microphone;
+            this.typeOfConnection = typeOfConnection;
+            this.noiseCancellation = noiseCancellation;
+            closeorOpen = closeOrOpen;
+            this.itemCondition = itemCondition;
         }
 
-        private bool Microphone;
-        public bool getMicrophone()
+        public virutal void DisplayHeadsets()
         {
-            return Microphone;
-        }
+            Console.WriteLine($"{this.brand}");
+            Console.WriteLine($"{this.model}");
+            Console.WriteLine($"{this.color}");
+            Console.WriteLine($"{this.frequencyRange}");
+            Console.WriteLine($"{this.microphone}");
+            Console.WriteLine($"{this.typeOfConnection}");
+            Console.WriteLine($"{this.noiseCancellation}");
+            Console.WriteLine($"{this.closeorOpen}");
+            Console.WriteLine($"{this.itemCondition}");
+            Console.WriteLine($"{this.cableType}");
 
-        private string TypeOfConnection;
-        public string getTypeOfConnection()
-        {
-            return TypeOfConnection;
         }
+    } 
 
-        private bool NoiseCancellation;
-        public bool getNoiseCanellation()
-        {
-            return NoiseCancellation;
-        }
-
-        private string CloseOrOpen;
-        public string getCloseOrOpen()
-        {
-            return CloseOrOpen;
-        }
-
-        private string ItemCondition;
-        public string getItemCondition()
-        {
-            return ItemCondition;
-        }
-
-        public void getDetails()
-        {
-            Console.WriteLine("GetDetails");
-        }
-    }
+        
+        
+          
 
     public class WiredHeadphones : Headset
     {
@@ -89,34 +78,30 @@ namespace Domain_Models
            string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition, string cableType)
            : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closeOrOpen, itemCondition)
         {
-            Cabletype = cableType;
+
         }
-
-        private string Cabletype {set; get; }
-
-        public string GetCabletype() 
-        {
-            return Cabletype; 
-        }  
+      
     }
 
     public class BluetoothHeadphones : Headset
     {
+        public double bluetoothVersion { get; set; }
+
         public BluetoothHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
             string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition, double bluetoothVersion) 
             : base (brand,model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closeOrOpen, itemCondition)
         {
-            BluetoothVersion = bluetoothVersion;
+
         }
-
-        //Double da bluetooth kan være f.eks. 5.3
-        private double BluetoothVersion { set; get; }
-
-        public double GetBluetoothVersion()
+   public override void DisplayHeadsets()
         {
-            return BluetoothVersion; 
+            base.DisplayHeadsets()
+            Console.WriteLine($"This headset comes with {bluetoothVersion}");
         }
+
+     
     }
 }
+
 
 
