@@ -39,19 +39,6 @@ namespace Domain_Models
             this.cableType = cableType ;
         }
 
-        protected Headset(string brand, string model, string color, string frequencyRange, bool microphone, string typeOfConnection, bool noiseCancellation, string closeOrOpen, string itemCondition)
-        {
-            this.brand = brand;
-            this.model = model;
-            this.color = color;
-            this.frequencyRange = frequencyRange;
-            this.microphone = microphone;
-            this.typeOfConnection = typeOfConnection;
-            this.noiseCancellation = noiseCancellation;
-            closeorOpen = closeOrOpen;
-            this.itemCondition = itemCondition;
-        }
-
         public virutal void DisplayHeadsets()
         {
             Console.WriteLine($"{this.brand}");
