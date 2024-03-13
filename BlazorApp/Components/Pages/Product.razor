@@ -1,9 +1,10 @@
 ﻿@page "/product/{productId}"
+@inject List<Headset> allProducts
 
-<PageTitle>Product</PageTitle>
+<PageTitle>Product @ProductToShow.brand</PageTitle>
+
 
 @code {
-    List<Headset> allProducts = new CreateProducts().CreateListOfProducts();
     [Parameter]
     public string productId { get; set; }
 
