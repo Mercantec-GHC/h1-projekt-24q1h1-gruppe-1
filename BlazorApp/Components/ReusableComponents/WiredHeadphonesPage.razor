@@ -1,0 +1,20 @@
+﻿﻿<div class="card">
+    <div class="card-body">
+        <div class="card-content">
+            <h5 class="card-title">Brand: @wiredHeadphones.brand</h5>
+            <h5 class="card-title">Model: @wiredHeadphones.model</h5>
+            <h5 class="card-title">Color: @wiredHeadphones.color</h5>
+            <h5 class="card-title">Frequency Range: @wiredHeadphones.frequencyRange</h5>
+            <h5 class="card-title">Microphone: @wiredHeadphones.microphone</h5>
+            <!--<h5 class="card-title">Noise Cancellation: @wiredHeadphones.noiseCancellation</h5>
+            <h5 class="card-title">Closed / Open: @wiredHeadphones.closeOrOpen</h5>
+            <h5 class="card-title">Condition: @wiredHeadphones.itemCondition</h5>-->
+            <h4 class="card-title"><a href="@wiredHeadphones.Url">Click here to see the headset!</a></h4>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public WiredHeadphones wiredHeadphones { get; set; }
+}

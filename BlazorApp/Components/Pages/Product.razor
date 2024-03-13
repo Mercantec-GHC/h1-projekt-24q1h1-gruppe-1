@@ -1,0 +1,17 @@
+﻿@page "/product/{productId}"
+@inject List<Headset> allProducts
+
+<PageTitle>Product @ProductToShow.brand</PageTitle>
+
+
+@code {
+    [Parameter]
+    public string productId { get; set; }
+
+    public Headset ProductToShow;
+
+    protected override void OnInitialized()
+    {
+        ProductToShow = allProducts[int.Parse(productId)];
+    }
+}
