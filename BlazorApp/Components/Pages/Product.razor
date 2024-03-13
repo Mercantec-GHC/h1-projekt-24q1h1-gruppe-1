@@ -11,9 +11,9 @@
             Model: @ProductToShow.model<br />
             Color: @ProductToShow.color<br />
             Frequency response: @ProductToShow.frequencyRange<br />
-            Microphone: @ProductToShow.microphone<br />
+            Microphone: @(ProductToShow.microphone ? "Yes" : "No")<br />
             Type of connection: @ProductToShow.typeOfConnection<br />
-            Noise cancellation: @ProductToShow.noiseCancellation<br />
+            Noise cancellation: @(ProductToShow.noiseCancellation ? "Yes" : "No")<br />
             Closed or open: @ProductToShow.closedOrOpen<br />
             Item condition: @ProductToShow.itemCondition
 
@@ -24,6 +24,8 @@
         <a href="#" class="btn btn-primary">Buy</a>
     </div>
 </div>
+
+
 
 @code {
     [Parameter]
