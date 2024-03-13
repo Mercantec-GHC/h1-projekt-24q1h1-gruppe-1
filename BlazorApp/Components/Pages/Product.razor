@@ -1,0 +1,16 @@
+﻿@page "/product/{productId}"
+
+<PageTitle>Product</PageTitle>
+
+@code {
+    List<Headset> allProducts = new CreateProducts().CreateListOfProducts();
+    [Parameter]
+    public string productId { get; set; }
+
+    public Headset ProductToShow;
+
+    protected override void OnInitialized()
+    {
+        ProductToShow = allProducts[int.Parse(productId)];
+    }
+}
