@@ -15,9 +15,9 @@ namespace Domain_Models
             AllProducts.Add(new WiredHeadphones("Sony", "S1", "Black", "20-20000hz", false, "3.5m", false, "Closed",
                 "New")
             { });
-            AllProducts.Add(new WiredHeadphones("Bose", "E2", "Silver", "20-30000", false, "3.5mm", true, "Closed", "New")
+            AllProducts.Add(new WiredHeadphones("Bose", "E2", "Silver", "20-30000hz", false, "3.5mm", true, "Closed", "New")
             { });
-            AllProducts.Add(new WiredHeadphones("Audeze", "LCD-X", "Black", "10-40000", false, "3.5mm", false, "Open", "Used")
+            AllProducts.Add(new WiredHeadphones("Audeze", "LCD-X", "Black", "10-40000hz", false, "3.5mm", false, "Open", "Used")
             { });
             AllProducts.Add(new BluetoothHeadphones("JBL", "X1", "Black", "15-30000hz", true, "Bluetooth", true, "Closed", "New")
             { });
