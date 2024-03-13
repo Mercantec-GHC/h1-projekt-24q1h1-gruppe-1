@@ -21,7 +21,6 @@ namespace Domain_Models
         public bool noiseCancellation { get; set; }
         public string closedOrOpen { get; set; }
         public string itemCondition { get; set; }
-        public string cableType { get; set; }
 
         public Headset(string brand, string model, string color, string frequencyRange, bool microphone, string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition)
         {
@@ -76,7 +75,6 @@ namespace Domain_Models
             base.DisplayHeadset();
             Console.WriteLine($"The cable is{this.cableType}");
         }
-
     }
 
     public class BluetoothHeadphones : Headphones
@@ -94,7 +92,5 @@ namespace Domain_Models
             base.DisplayHeadset();
             Console.WriteLine($"This headset comes with {bluetoothVersion}");
         }
-
-
     }
 }
