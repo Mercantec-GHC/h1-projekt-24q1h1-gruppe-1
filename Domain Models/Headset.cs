@@ -67,11 +67,7 @@ namespace Domain_Models
 
         }
     } 
-
-        
-        
-          
-
+    
     public class WiredHeadphones : Headset
     {
         public WiredHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
@@ -83,8 +79,8 @@ namespace Domain_Models
       
     }
 
-    public class BluetoothHeadphones : Headset
-    {
+     public class BluetoothHeadphones : Headset
+     {
         public double bluetoothVersion { get; set; }
 
         public BluetoothHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
@@ -93,14 +89,14 @@ namespace Domain_Models
         {
 
         }
-   public override void DisplayHeadsets()
+        public override void DisplayHeadsets()
         {
             base.DisplayHeadsets()
             Console.WriteLine($"This headset comes with {bluetoothVersion}");
         }
 
      
-    }
+     }
 }
 
 
