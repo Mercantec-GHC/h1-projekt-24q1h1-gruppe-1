@@ -3,13 +3,29 @@
 
 <PageTitle>Product @ProductToShow.brand</PageTitle>
 <div class="card" style="width: 18rem;">
-        <img src="https://media.karousell.com/media/photos/products/2022/7/15/bose_quietcomfort_35_ii_1657861536_6fbc5e2d_progressive.jpg" class="card-img-top" alt="...">
+    <img src="https://media.karousell.com/media/photos/products/2022/7/15/bose_quietcomfort_35_ii_1657861536_6fbc5e2d_progressive.jpg" class="card-img-top" alt="...">
     <div class="card-body">
         <h5 class="card-title">@ProductToShow.brand</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <p class="card-text"> 
+        
+            Model: @ProductToShow.model<br />
+            Color: @ProductToShow.color<br />
+            Frequency response: @ProductToShow.frequencyRange<br />
+            Microphone: @(ProductToShow.microphone ? "Yes" : "No")<br />
+            Type of connection: @ProductToShow.typeOfConnection<br />
+            Noise cancellation: @(ProductToShow.noiseCancellation ? "Yes" : "No")<br />
+            Closed or open: @ProductToShow.closedOrOpen<br />
+            Item condition: @ProductToShow.itemCondition<br />   
+            Price: $ @ProductToShow.price
+
+        </p>
+        <a href="https://imgix.ranker.com/user_node_img/50064/1001270663/original/d-photo-u1?auto=format&q=60&fit=crop&fm=pjpg&dpr=2&w=650" class="btn btn-primary">Buy</a>
+        <a href="/products" class="btn btn-primary">Back to all products</a>
+
     </div>
 </div>
+
+
 
 @code {
     [Parameter]
