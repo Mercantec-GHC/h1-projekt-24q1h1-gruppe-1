@@ -13,18 +13,18 @@ namespace Domain_Models
             List<Headset> AllProducts = new List<Headset>();
 
             AllProducts.Add(new WiredHeadphones("Sony", "S1", "Black", "20-20000hz", false, "3.5m", false, "Closed",
-                "New")
-            { });
-            AllProducts.Add(new WiredHeadphones("Bose", "E2", "Silver", "20-30000", false, "3.5mm", true, "Closed", "New")
-            { });
-            AllProducts.Add(new WiredHeadphones("Audeze", "LCD-X", "Black", "10-40000", false, "3.5mm", false, "Open", "Used")
-            { });
-            AllProducts.Add(new BluetoothHeadphones("JBL", "X1", "Black", "15-30000hz", true, "Bluetooth", true, "Closed", "New")
-            { });
-            AllProducts.Add(new BluetoothHeadphones("Beats", "Y1", "Red", "25-20000hz", true, "Bluetooth", true, "Closed", "Refurbished")
-            { });
-            AllProducts.Add(new BluetoothHeadphones("Bose", "Quiet Comfort", "White", "20-50000hz", true, "Bluetooth", true, "Open", "Used")
-            { });
+                    "New", 200)
+                { });
+            AllProducts.Add(new WiredHeadphones("Bose", "E2", "Silver", "20-30000hz", false, "3.5mm", true, "Closed", "New", 300)
+                { });
+            AllProducts.Add(new WiredHeadphones("Audeze", "LCD-X", "Black", "10-40000hz", false, "3.5mm", false, "Open", "Used", 1500)
+                { });
+            AllProducts.Add(new BluetoothHeadphones("JBL", "X1", "Black", "15-30000hz", true, "Bluetooth", true, "Closed", "New", 250)
+                { });
+            AllProducts.Add(new BluetoothHeadphones("Beats", "Y1", "Red", "25-20000hz", true, "Bluetooth", true, "Closed", "Refurbished", 315)
+                { });
+            AllProducts.Add(new BluetoothHeadphones("Bose", "Quiet Comfort", "White", "20-50000hz", true, "Bluetooth", true, "Open", "Used", 300)
+                { });
 
             return AllProducts;
         }

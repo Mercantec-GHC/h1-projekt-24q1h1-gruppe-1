@@ -21,8 +21,9 @@ namespace Domain_Models
         public bool noiseCancellation { get; set; }
         public string closedOrOpen { get; set; }
         public string itemCondition { get; set; }
+        public int price { get; set; }
 
-        public Headset(string brand, string model, string color, string frequencyRange, bool microphone, string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition)
+        public Headset(string brand, string model, string color, string frequencyRange, bool microphone, string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price)
         {
             this.Url = $"headset/{lastId}";
             Id = lastId++;
@@ -35,6 +36,7 @@ namespace Domain_Models
             this.noiseCancellation = noiseCancellation;
             this.closedOrOpen = closedOrOpen;
             this.itemCondition = itemCondition;
+            this.price = price;
         }
 
         public virtual void DisplayHeadset()
@@ -54,8 +56,8 @@ namespace Domain_Models
     public abstract class Headphones : Headset
     {
         public Headphones(string brand, string model, string color, string frequencyRange, bool microphone,
-           string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition)
-             : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition)
+           string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price)
+             : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price)
         {
 
         }
@@ -65,8 +67,8 @@ namespace Domain_Models
     {
         public string cableType { get; set; }
         public WiredHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
-           string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition)
-           : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition)
+           string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price)
+           : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price)
         {
 
         }
@@ -82,8 +84,8 @@ namespace Domain_Models
         public double bluetoothVersion { get; set; }
 
         public BluetoothHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
-            string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition)
-            : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition)
+            string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price)
+            : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price)
         {
 
         }
