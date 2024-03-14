@@ -42,7 +42,7 @@ else
 }
 
 @code {
-    public string SelectedBrand;
+    public string SelectedBrand = ""; // Initialize to an empty string
     public List<Headset> ProductToshow;
 
     protected override void OnInitialized()
@@ -57,7 +57,7 @@ else
 
     public List<Headset> FilterBrand(List<Headset> allProducts, string brandFilter)
     {
-        if (brandFilter != "")
+        if (!string.IsNullOrEmpty(brandFilter)) // Check if brandFilter is not null or empty
         {
             return allProducts.Where(headset => headset.brand.ToLower() == brandFilter.ToLower()).ToList();
         }
