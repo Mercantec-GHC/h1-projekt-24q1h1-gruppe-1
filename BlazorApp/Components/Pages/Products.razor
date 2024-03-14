@@ -14,13 +14,15 @@ Sort by brand:
 
 <button class="btn btn-primary" @onclick="FilterAndUpdateHeadsets">Click to Sort</button>
 
+<br />  <br />
+
 @if (ProductToshow == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    @foreach (var headset in ProductToshow)
+    @foreach (var headset in ProductToshow) //Ændret fra allProducts
     {
         uint productId = headset.Id;
         <div class="card" style="width: 18rem;">
