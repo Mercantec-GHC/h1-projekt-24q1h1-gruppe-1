@@ -3,11 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Npgsql;
 
 namespace Domain_Models
 {
+
+
+
     public class CreateProducts
     {
+        public void InsertDummyDataInDB(List<Headset> AllProducts)
+        {
+            string connectionString = "";
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+
+                foreach (var headset in AllProducts)
+                {
+                    if (headset is WiredHeadphones wiredHeadphones)
+                    {
+                        string insertCommand = $@"
+                            INSERT INTO Headsets(Url, Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl)
+                            VALUES('{wiredHeadphones.brand}', '{wiredHeadphones.model}', '{wiredHeadphones.color}', '{wiredHeadphones.frequencyRange}', '{wiredHeadphones.microphone}', '{wiredHeadphones.typeOfConnection}', '{wiredHeadphones.noiseCancellation}', '{wiredHeadphones.closedOrOpen}', '{wiredHeadphones.itemCondition}', '{wiredHeadphones.price}', '{wiredHeadphones.imageUrl}');";
+
+                        cmd.CommandText = insertCommand;
+                        cmd.ExecuteNonQuery();
+                    } else if (headset is BluetoothHeadphones bluetoothHeadphones)
+                    {
+                        string insertCommand = $@"
+                            INSERT INTO Headsets(Url, Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl)
+                            VALUES('{bluetoothHeadphones.brand}', '{bluetoothHeadphones.model}', '{bluetoothHeadphones.color}', '{bluetoothHeadphones.frequencyRange}', '{bluetoothHeadphones.microphone}', '{bluetoothHeadphones.typeOfConnection}', '{bluetoothHeadphones.noiseCancellation}', '{bluetoothHeadphones.closedOrOpen}', '{bluetoothHeadphones.itemCondition}', '{bluetoothHeadphones.price}', '{bluetoothHeadphones.imageUrl}');";
+
+                        cmd.CommandText = insertCommand;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
         public List<Headset> CreateListOfProducts()
         {
             List<Headset> AllProducts = new List<Headset>();
