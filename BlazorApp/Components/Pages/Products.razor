@@ -57,7 +57,7 @@ else
 
     public List<Headset> FilterBrand(List<Headset> allProducts, string brandFilter)
     {
-        if (!string.IsNullOrEmpty(brandFilter)) // Check if brandFilter is not null or empty
+        if (!string.IsNullOrEmpty(brandFilter))
         {
             return allProducts.Where(headset => headset.brand.ToLower() == brandFilter.ToLower()).ToList();
         }
