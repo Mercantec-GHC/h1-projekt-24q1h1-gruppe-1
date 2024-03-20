@@ -1,4 +1,5 @@
 using BlazorApp.Components;
+using BlazorApp.Services;
 using Domain_Models;
 
 namespace BlazorApp
@@ -8,7 +9,12 @@ namespace BlazorApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddSingleton<List<Headset>>(sp => new CreateProducts().CreateListOfProducts());
+
+            // GetAllHeadsets from the Postgres DB
+            IConfiguration Configuration = builder.Configuration;
+            var connectionString = Configuration.GetConnectionString("DefaultConnection") ??
+                                   Environment.GetEnvironmentVariable("DefaultConnection");
+            builder.Services.AddSingleton<List<Headset>>(sp => new DatabaseService(connectionString).GetAllHeadsets());
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();

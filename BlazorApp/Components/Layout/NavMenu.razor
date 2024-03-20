@@ -20,26 +20,5 @@
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Browse Products
             </NavLink>
         </div>
-        
-        <!-- Only used for inserting data into database -->
-        <div class="nav-item px-3">
-            <div class="nav-item px-3">
-                <button class="btn btn-primary" @onclick="RunDatabase">Run Database</button>
-            </div>
-        </div>
     </nav>
 </div>
-
-
-@code
-{
-    // Only used for inserting data into database
-    public void RunDatabase()
-    {
-        CreateProducts createProducts = new CreateProducts();
-
-        List<Headset> allProducts = createProducts.CreateListOfProducts();
-
-        createProducts.InsertDummyDataInDB(allProducts);
-    }
-}
