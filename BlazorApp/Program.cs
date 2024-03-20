@@ -15,6 +15,7 @@ namespace BlazorApp
             var connectionString = Configuration.GetConnectionString("DefaultConnection") ??
                                    Environment.GetEnvironmentVariable("DefaultConnection");
             builder.Services.AddSingleton<List<Headset>>(sp => new DatabaseService(connectionString).GetAllHeadsets());
+
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
