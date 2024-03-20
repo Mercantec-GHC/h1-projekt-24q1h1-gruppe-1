@@ -14,7 +14,7 @@ namespace Domain_Models
     {
         public void InsertDummyDataInDB(List<Headset> AllProducts)
         {
-            string connectionString = "";
+            string connectionString = "Host=ep-blue-fire-a2nnh5p7.eu-central-1.aws.neon.tech;Username=sonaredb_owner;Password=8LlUVraRtDs9;Database=sonaredb;SSL Mode=Require";
             using var connection = new NpgsqlConnection(connectionString);
             connection.Open();
             using (var cmd = new NpgsqlCommand())
@@ -26,7 +26,7 @@ namespace Domain_Models
                     if (headset is WiredHeadphones wiredHeadphones)
                     {
                         string insertCommand = $@"
-                            INSERT INTO Headsets(Url, Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl)
+                            INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl)
                             VALUES('{wiredHeadphones.brand}', '{wiredHeadphones.model}', '{wiredHeadphones.color}', '{wiredHeadphones.frequencyRange}', '{wiredHeadphones.microphone}', '{wiredHeadphones.typeOfConnection}', '{wiredHeadphones.noiseCancellation}', '{wiredHeadphones.closedOrOpen}', '{wiredHeadphones.itemCondition}', '{wiredHeadphones.price}', '{wiredHeadphones.imageUrl}');";
 
                         cmd.CommandText = insertCommand;
@@ -34,7 +34,7 @@ namespace Domain_Models
                     } else if (headset is BluetoothHeadphones bluetoothHeadphones)
                     {
                         string insertCommand = $@"
-                            INSERT INTO Headsets(Url, Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl)
+                            INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl)
                             VALUES('{bluetoothHeadphones.brand}', '{bluetoothHeadphones.model}', '{bluetoothHeadphones.color}', '{bluetoothHeadphones.frequencyRange}', '{bluetoothHeadphones.microphone}', '{bluetoothHeadphones.typeOfConnection}', '{bluetoothHeadphones.noiseCancellation}', '{bluetoothHeadphones.closedOrOpen}', '{bluetoothHeadphones.itemCondition}', '{bluetoothHeadphones.price}', '{bluetoothHeadphones.imageUrl}');";
 
                         cmd.CommandText = insertCommand;
