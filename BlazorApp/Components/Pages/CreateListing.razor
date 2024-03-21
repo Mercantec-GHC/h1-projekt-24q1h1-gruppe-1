@@ -1,5 +1,6 @@
 ﻿@page "/createlisting"
 @using Npgsql
+@using System.Drawing
 
 <PageTitle>Create Listing</PageTitle>
 
@@ -19,27 +20,26 @@
     <option value="Other">Other</option>
 </select>
 
-<select @bind="Microphone">
-    <option value="">Microphone</option>
-    <option value="TRUE">TRUE</option>
-    <option value="FALSE">FALSE</option>
-</select>
+<label>
+    <input type="checkbox" @bind="Microphone" />
+    Microphone
+</label>
 
 <button @onclick="Submit">Submit</button>
 
 @code {
-    private string Brand { get; set; }
-    private string Model { get; set; }
-    private string Color { get; set; }
-    private string FrequencyRange { get; set; }
-    private bool Microphone { get; set; }
-    private string TypeOfConnection { get; set; }
-    private string NoiseCancellation { get; set; }
-    private string ClosedOrOpen { get; set; }
-    private string ItemCondition { get; set; }
-    private int Price { get; set; }
-    private string ImageUrl { get; set; }
-    private string Type { get; set; }
+    private string? Brand { get; set; }
+    private string? Model { get; set; }
+    private string? Color { get; set; }
+    private string? FrequencyRange { get; set; }
+    private bool? Microphone { get; set; }
+    private string? TypeOfConnection { get; set; }
+    private string? NoiseCancellation { get; set; }
+    private string? ClosedOrOpen { get; set; }
+    private string? ItemCondition { get; set; }
+    private int? Price { get; set; }
+    private string? ImageUrl { get; set; }
+    private string? Type { get; set; }
 
     private void Submit()
     {
@@ -49,12 +49,24 @@
         using (var cmd = new NpgsqlCommand())
         {
             cmd.Connection = connection;
-            
-            string insertCommand = $@"
-                INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, Type)
-                VALUES('{Brand}', '{Model}', '{Color}', '{FrequencyRange}', {Microphone}, '{TypeOfConnection}', '{NoiseCancellation}', '{ClosedOrOpen}', '{ItemCondition}', '{Price}', '{ImageUrl}', '{Type}');";
 
-            cmd.CommandText = insertCommand;
+            cmd.CommandText = @"
+            INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, Type)
+            VALUES(@Brand, @Model, @Color, @FrequencyRange, @Microphone, @TypeOfConnection, @NoiseCancellation, @ClosedOrOpen, @ItemCondition, @Price, @ImageUrl, @Type);";
+
+            cmd.Parameters.AddWithValue("Brand", Brand ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("Model", Model ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("Color", Color ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("FrequencyRange", FrequencyRange ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("Microphone", Microphone ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("TypeOfConnection", TypeOfConnection ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("NoiseCancellation", NoiseCancellation ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("ClosedOrOpen", ClosedOrOpen ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("ItemCondition", ItemCondition ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("Price", Price ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("ImageUrl", ImageUrl ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("Type", Type ?? (object)DBNull.Value);
+
             cmd.ExecuteNonQuery();
         }
     }
