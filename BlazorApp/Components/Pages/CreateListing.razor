@@ -4,7 +4,7 @@
 
 <PageTitle>Create Listing</PageTitle>
 
-<h3>Create Listing</h3>
+<h3 style ="color: white;">Create Listing</h3>
 
 <select @bind="Brand">
     <option value="">Select a brand</option>
@@ -13,12 +13,18 @@
     <option value="JBL">JBL</option>
 </select>
 
+<br />
+<br />
+
 <select @bind="Model">
     <option value="">Select a model</option>
     <option value="S1">S1</option>
     <option value="S2">S2</option>
     <option value="Other">Other</option>
 </select>
+
+<br />
+<br />
 
 <select @bind="Color">
     <option value="">Select a color</option>
@@ -27,6 +33,9 @@
     <option value="Other">Other</option>
 </select>
 
+<br />
+<br />
+
 <select @bind="FrequencyRange">
     <option value="">Select a frequencyrange</option>
     <option value="S1">S1</option>
@@ -34,11 +43,16 @@
     <option value="Other">Other</option>
 </select>
 
+<br />
+<br />
 
-<label>
+<label style="color: white;">
     <input type="checkbox" @bind="Microphone" />
     Microphone
 </label>
+
+<br />
+<br />
 
 <select @bind="TypeOfConnection">
     <option value="">Select a typeofconnection</option>
@@ -46,10 +60,16 @@
     <option value="BluetoothHeadphones">BluetoothHeadphones</option>
 </select>
 
-<label>
+<br />
+<br />
+
+<label style="color: white;">
     <input type="checkbox" @bind="NoiseCancellation" />
     NoiseCancellation
 </label>
+
+<br />
+<br />
 
 <select @bind="ClosedOrOpen">
     <option value="">Select a closedoropen</option>
@@ -57,27 +77,42 @@
     <option value="BluetoothHeadphones">BluetoothHeadphones</option>
 </select>
 
+<br />
+<br />
+
 <select @bind="ItemCondition">
     <option value="">Select a itemcondition</option>
     <option value="WiredHeadphones">WiredHeadphones</option>
     <option value="BluetoothHeadphones">BluetoothHeadphones</option>
 </select>
 
-<label>
+<br />
+<br />
+
+<label style="color: white;">
     <input type="text" @bind="Price" />
     Price
 </label>
 
-<label>
+<br />
+<br />
+
+<label style="color: white;">
     <input type="text" @bind="ImageUrl" />
     ImageUrl
 </label>
+
+<br />
+<br />
 
 <select @bind="Type">
     <option value="">Select a type</option>
     <option value="WiredHeadphones">WiredHeadphones</option>
     <option value="BluetoothHeadphones">BluetoothHeadphones</option>
 </select>
+
+<br />
+<br />
 
 <button @onclick="Submit">Submit</button>
 
