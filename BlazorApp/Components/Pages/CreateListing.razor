@@ -20,10 +20,66 @@
     <option value="Other">Other</option>
 </select>
 
+<select @bind="Color">
+    <option value="">Select a color</option>
+    <option value="S1">S1</option>
+    <option value="S2">S2</option>
+    <option value="Other">Other</option>
+</select>
+
+<select @bind="FrequencyRange">
+    <option value="">Select a frequencyrange</option>
+    <option value="S1">S1</option>
+    <option value="S2">S2</option>
+    <option value="Other">Other</option>
+</select>
+
+
 <label>
     <input type="checkbox" @bind="Microphone" />
     Microphone
 </label>
+
+<select @bind="TypeOfConnection">
+    <option value="">Select a typeofconnection</option>
+    <option value="WiredHeadphones">WiredHeadphones</option>
+    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
+</select>
+
+<label>
+    <input type="checkbox" @bind="NoiseCancellation" />
+    NoiseCancellation
+</label>
+
+<select @bind="ClosedOrOpen">
+    <option value="">Select a closedoropen</option>
+    <option value="WiredHeadphones">WiredHeadphones</option>
+    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
+</select>
+
+<select @bind="ItemCondition">
+    <option value="">Select a itemcondition</option>
+    <option value="WiredHeadphones">WiredHeadphones</option>
+    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
+</select>
+
+<select @bind="Price">
+    <option value="">Select a price</option>
+    <option value="WiredHeadphones">WiredHeadphones</option>
+    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
+</select>
+
+<select @bind="ImageUrl">
+    <option value="">Select a imageurl</option>
+    <option value="WiredHeadphones">WiredHeadphones</option>
+    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
+</select>
+
+<select @bind="Type">
+    <option value="">Select a type</option>
+    <option value="WiredHeadphones">WiredHeadphones</option>
+    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
+</select>
 
 <button @onclick="Submit">Submit</button>
 
