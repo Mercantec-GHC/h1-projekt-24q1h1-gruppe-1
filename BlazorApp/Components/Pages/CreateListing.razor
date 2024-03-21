@@ -63,17 +63,15 @@
     <option value="BluetoothHeadphones">BluetoothHeadphones</option>
 </select>
 
-<select @bind="Price">
-    <option value="">Select a price</option>
-    <option value="WiredHeadphones">WiredHeadphones</option>
-    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
-</select>
+<label>
+    <input type="text" @bind="Price" />
+    Price
+</label>
 
-<select @bind="ImageUrl">
-    <option value="">Select a imageurl</option>
-    <option value="WiredHeadphones">WiredHeadphones</option>
-    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
-</select>
+<label>
+    <input type="text" @bind="ImageUrl" />
+    ImageUrl
+</label>
 
 <select @bind="Type">
     <option value="">Select a type</option>
@@ -90,7 +88,7 @@
     private string? FrequencyRange { get; set; }
     private bool? Microphone { get; set; }
     private string? TypeOfConnection { get; set; }
-    private string? NoiseCancellation { get; set; }
+    private bool? NoiseCancellation { get; set; }
     private string? ClosedOrOpen { get; set; }
     private string? ItemCondition { get; set; }
     private int? Price { get; set; }
