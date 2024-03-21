@@ -10,3 +10,10 @@
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     }
 }
+
+.card-img-top {
+    width: 100%;
+    height: 200%;
+    object-fit: cover;
+}
+
