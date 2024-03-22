@@ -3,28 +3,22 @@
 
 <PageTitle>Products</PageTitle>
 
-Sort by brand:
-<select @bind="SelectedBrand" class="form-select">
-    <option value="">All Brands</option>
-    <option value="sony">Sony</option>
-    <option value="audeze">Audeze</option>
-    <option value="bose">Bose</option>
-    <option value="beats">Beats</option>
-</select>
+<input @bind="SearchTerm" class="form-control" placeholder="Search by brand, model, color, price etc..." />
 
-<button class="btn btn-primary" @onclick="FilterAndUpdateHeadsets">Click to Sort</button>
+<button class="btn btn-primary" @onclick="FilterAndUpdateHeadsets">Search</button>
+
 
 <br />
 <br />
 
-@if (ProductToshow == null)
+@if (ProductToShow == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
     <div class="grid-container">
-        @foreach (var headset in ProductToshow) //Ændret fra allProducts
+        @foreach (var headset in ProductToShow)
         {
             uint productId = headset.Id;
             <div class="card" style="width: 18rem;">
@@ -42,24 +36,41 @@ else
 }
 
 @code {
-    public string SelectedBrand = ""; // Initialize to an empty string
-    public List<Headset> ProductToshow;
+    public string SearchTerm { get; set; } = "";
+    public List<Headset> ProductToShow;
 
     protected override void OnInitialized()
     {
-        ProductToshow = allProducts;
+        ProductToShow = allProducts;
     }
 
     public void FilterAndUpdateHeadsets()
     {
-        ProductToshow = FilterBrand(allProducts, SelectedBrand);
+        ProductToShow = FilterBrand(allProducts, SearchTerm.ToLower());
     }
 
-    public List<Headset> FilterBrand(List<Headset> allProducts, string brandFilter)
+    public List<Headset> FilterBrand(List<Headset> allProducts, string searchTerm)
     {
-        if (!string.IsNullOrEmpty(brandFilter))
+        if (!string.IsNullOrEmpty(searchTerm))
         {
-            return allProducts.Where(headset => headset.brand.ToLower() == brandFilter.ToLower()).ToList();
+            string[] searchKeywords = searchTerm.Split(' ');
+
+            return allProducts.Where(headset =>
+                searchKeywords.All(keyword =>
+                    headset.brand.ToLower().Contains(keyword) ||
+                    headset.model.ToLower().Contains(keyword) ||
+                    headset.color.ToLower().Contains(keyword) ||
+                    headset.frequencyRange.ToLower().Contains(keyword) ||
+                    // headset.microphone.ToString().ToLower() == keyword ||
+                    headset.typeOfConnection.ToLower().Contains(keyword) ||
+                    // headset.noiseCancellation.ToString().ToLower() == keyword ||
+                    headset.closedOrOpen.ToLower().Contains(keyword) ||
+                    headset.itemCondition.ToLower().Contains(keyword) ||
+                    // headset.type.ToLower().Contains(keyword) ||
+                    // headset.description.ToLower().Contains(keyword) ||
+                    headset.price.ToString().Contains(keyword)
+                )
+            ).ToList();
         }
         else
         {
