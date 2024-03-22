@@ -25,10 +25,14 @@ else
                 <img src="@headset.imageUrl" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">@headset.brand</h5>
-                    <p class="card-text">
-                        Model: @headset.model <br /> Color: @headset.color <br /> Price: $ @headset.price <br />
+                    <h5 class="card-model-text">@headset.model</h5>
+                    <div class="card-seperator"></div>
+                    <p class="card-text" style="text-align: center;">
+                        PRICE: <span style="font-weight: bold;">$@headset.price</span>  <br />
                     </p>
-                    <a href="product/@productId" class="btn btn-primary">Show Product</a>
+                    <div class="center-button-class">
+                        <a href="product/@productId" class="btn btn-primary">Show Product</a>
+                    </div>
                 </div>
             </div>
         }
