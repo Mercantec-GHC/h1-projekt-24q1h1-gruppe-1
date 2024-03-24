@@ -111,9 +111,13 @@
 <br />
 <br />
 
-<label style="color: white;">
+<!--<label style="color: white;">
     <input type="text" @bind="ImageUrl" placeholder="upload images..." />
     ImageUrl
+</label>-->
+<label style="color: white;">
+    <input type="file" @onchange="OnFileSelected" />
+    Upload Image
 </label>
 
 <br />
@@ -145,6 +149,29 @@
     private int? Price { get; set; }
     private string? ImageUrl { get; set; }
     private string? Type { get; set; }
+    private string? ImagePath { get; set; }
+
+    private async Task OnFileSelected(ChangeEventArgs e)
+    {
+        var file = e.Value as IBrowserFile;
+        if (file != null)
+        {
+            var fileExtension = Path.GetExtension(file.Name);
+        
+            // Generate a unique filename using a GUID and the original file extension
+            var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
+
+            var path = Path.Combine("assets", uniqueFileName);
+        
+            // Save the file
+            using var stream = file.OpenReadStream();
+            using var fileStream = new FileStream(path, FileMode.Create);
+            await stream.CopyToAsync(fileStream);
+        
+            // Store the unique file path
+            ImagePath = path;
+        }
+    }
 
     private void Submit()
     {
