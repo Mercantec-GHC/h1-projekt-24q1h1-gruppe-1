@@ -1,12 +1,9 @@
 ﻿@page "/createlisting"
 @using Npgsql
-@using System.Drawing
-@using CloudinaryDotNet
 @using CloudinaryDotNet.Actions
+@inject IConfiguration config
 
 <PageTitle>Create Listing</PageTitle>
-
-
 
 <h4 style="color: white;">Create Listing</h4>
 
@@ -114,9 +111,19 @@
 <br />
 
 <label style="color: white;">
-    <input type="file" @onchange="OnFileSelected" />
+    <InputFile OnChange="@OnFileSelected" multiple />
     Upload Image
 </label>
+@if (errors.Count > 0)
+{
+    <h2>Errors</h2>
+    <ul class="text-danger">
+        @foreach (var error in errors)
+        {
+            <li>@error</li>
+        }
+    </ul>
+}
 
 <br />
 <br />
@@ -148,25 +155,40 @@
     private int? Price { get; set; }
     private string? ImageUrl { get; set; }
     private string? Type { get; set; }
-    
-    private async Task OnFileSelected(ChangeEventArgs e)
+
+    private long maxFileSize = 1024 * 1024 * 3; // 3 mb
+    private int maxAllowedFiles = 3;
+    private List<string> errors = new();
+    private string ImageFilename;
+    private async Task OnFileSelected(InputFileChangeEventArgs e)
     {
-        var file = e.Value as IBrowserFile;
-        if (file != null)
+        errors.Clear();
+
+        if (e.FileCount > maxAllowedFiles)
         {
-            var fileExtension = Path.GetExtension(file.Name);
-            var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
-            var path = Path.Combine("assets", uniqueFileName);
+            errors.Add($"Error: Attempting to upload {e.FileCount} files, but only {maxAllowedFiles} files are allowed.");
+            return;
+        }
 
-            // Save the file to the disk
-            using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
-            await file.OpenReadStream().CopyToAsync(fileStream);
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                string newFileName = Path.ChangeExtension(Path.GetRandomFileName(), Path.GetExtension(file.Name));
+                string path = Path.Combine(config.GetValue<string>("FileStorage")!, "", newFileName);
+                Directory.CreateDirectory(Path.Combine(config.GetValue<string>("FileStorage")!, ""));
+                await using FileStream fs = new(path, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
 
-            // Store the URL of the uploaded image
-            ImageUrl = path;
+                ImageUrl = path;
+                ImageFilename = newFileName;
+            }
+            catch (Exception ex)
+            {
+                errors.Add($"File: {file.Name} Error: {ex.Message}");
+            }
         }
     }
-
 
     private void Submit()
     {
@@ -191,7 +213,7 @@
             cmd.Parameters.AddWithValue("ClosedOrOpen", ClosedOrOpen ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("ItemCondition", ItemCondition ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Price", Price ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("ImageUrl", ImageUrl ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("ImageUrl", $"/assets/{ImageFilename}" ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Type", Type ?? (object)DBNull.Value);
 
             cmd.ExecuteNonQuery();
