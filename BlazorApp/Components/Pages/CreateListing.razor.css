@@ -80,77 +80,179 @@
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
-    color: black;
 }
 
 .price-section input:focus {
     border: 2px solid rgba(168, 30, 217, 1);
-    color: black;
 }
 
 .brand-section {
+    display: flex;
+    flex-direction: column;
     height: 12%;
     width: 37.5%;
     margin-bottom: 0.5em;
     padding: 0.75em;
+}
+
+.brand-section select {
+    flex-grow: 1;
+    border: none;
+    border-radius: 2em;
+    padding-left: 0.5em;
+    outline: none;
 }
 
 .model-section {
+    display: flex;
+    flex-direction: column;
     height: 12%;
     width: 37.5%;
     margin-bottom: 0.5em;
     padding: 0.75em;
+}
+
+.model-section select {
+    flex-grow: 1;
+    border: none;
+    border-radius: 2em;
+    padding-left: 0.5em;
+    outline: none;
 }
 
 .frequency-range-section {
+    display: flex;
+    flex-direction: column;
     height: 12%;
     width: 37.5%;
     margin-bottom: 0.5em;
     padding: 0.75em;
 }
 
-.connection-type-section {
+.frequency-range-section select {
+    flex-grow: 1;
+    border: none;
+    border-radius: 2em;
+    padding-left: 0.5em;
+    outline: none;
+}
+
+.noise-cancellation-section {
+    display: flex;
+    flex-direction: row;
     height: 6%;
-    width: 55%;
+    width: 30%;
     margin-bottom: 0.5em;
     padding: 0.75em;
     align-self: center;
 }
 
-.color-section {
+.noise-cancellation-section input {
+    flex-grow: 1;
+    height: 100%;
+    width: auto;
+    cursor: pointer;
+}
+
+.microphone-section {
+    display: flex;
+    flex-direction: row;
     height: 6%;
-    width: 100%;
+    width: 30%;
+    margin-bottom: 0.5em;
+    padding: 0.75em;
+    align-self: center;
+}
+
+.microphone-section input {
+    flex-grow: 1;
+    height: 100%;
+    width: auto;
+    cursor: pointer;
+}
+
+.color-section {
+    display: flex;
+    flex-direction: column;
+    height: 12%;
+    width: 20%;
     margin-bottom: 0.5em;
     padding: 0.75em;
 }
 
-.noise-cancellation-section {
-    height: 6%;
-    width: 47.5%;
+.color-section select {
+    flex-grow: 1;
+    border: none;
+    border-radius: 2em;
+    padding-left: 0.5em;
+    outline: none;
+}
+
+
+.connection-type-section {
+    display: flex;
+    flex-direction: column;
+    height: 12%;
+    width: 25%;
     margin-bottom: 0.5em;
     padding: 0.75em;
+    align-self: center;
+}
+
+.connection-type-section select {
+    flex-grow: 1;
+    border: none;
+    border-radius: 2em;
+    padding-left: 0.5em;
+    outline: none;
 }
 
 .closed-or-open-section {
-    height: 6%;
-    width: 47.5%;
+    display: flex;
+    flex-direction: column;
+    height: 12%;
+    width: 25%;
     margin-bottom: 0.5em;
     padding: 0.75em;
 }
 
+.closed-or-open-section select {
+    flex-grow: 1;
+    border: none;
+    border-radius: 2em;
+    padding-left: 0.5em;
+    outline: none;
+}
+
 .condition-section {
+    display: flex;
+    flex-direction: column;
     height: 12%;
-    width: 100%;
+    width: 20%;
     margin-bottom: calc(0.5em + 1%);
     padding: 0.75em;
 }
 
+.condition-section select {
+    flex-grow: 1;
+    border: none;
+    border-radius: 2em;
+    padding-left: 0.5em;
+    outline: none;
+}
+
 .description-section {
-    height: 30%;
+    height: 35%;
     width: 100%;
     padding: 0.75em;
+    margin-top: 5%;
 }
 
 h5 {
     font-weight: bold;
+    user-select: none;
+}
+
+h3 {
+    user-select: none;
 }

@@ -6,81 +6,14 @@
 
 
 
-<!--<h4 style ="color: white;">Create Listing</h4>
+<!--
 
-<select @bind="Brand">
-    <option value="">Select a Brand</option>
-    <option value="Sony">Sony</option>
-    <option value="Bose">Bose</option>
-    <option value="JBL">JBL</option>
-</select>
-
-<br />
-<br />
-
-<select @bind="Model">
-    <option value="S1">Select a Model</option>
-    <option value="S2">S1</option>
-    <option value="S3">S2</option>
-    <option value="Other">Other</option>
-</select>
-
-<br />
-<br />
-
-<select @bind="Color">
-    <option value="">Select a Color..</option>
-    <option value="Red">Red</option>
-    <option value="Rlue">Blue</option>
-    <option value="Other">Other</option>
-</select>
-
-<br />
-<br />
-
-<select @bind="FrequencyRange">
-    <option value="">Select a Frequency Range</option>
-    <option value="20-20000hz">20-20000hz</option>
-    <option value="10-50000hz">10-50000hz</option>
-    <option value="Other">Other</option>
-</select>
-
-<br />
-<br />
-
-<label style="color: white;">
-    <input type="checkbox" @bind="Microphone" />
-    Microphone
-</label>
-
-<br />
-<br />
-
-<select @bind="TypeOfConnection">
-    <option value="">Select a Type of Connection</option>
-    <option value="WiredHeadphones">WiredHeadphones</option>
-    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
-</select>
-
-<br />
-<br />
 
 <label style="color: white;">
     <input type="checkbox" @bind="NoiseCancellation" />
     Noise Cancellation
 </label>
 
-<br />
-<br />
-
-<select @bind="ClosedOrOpen">
-    <option value="">Select Closed or Open</option>
-    <option value="open">Open</option>
-    <option value="closed">Closed</option>
-</select>
-
-<br />
-<br />
 
 <select @bind="ItemCondition">
     <option value="">Select Item Condition</option>
@@ -88,37 +21,16 @@
     <option value="bad">Bad</option>
 </select>
 
-<br />
-<br />
-
-<label style="color: white;">
-    <input type="text" @bind="Price" placeholder="Provide the price in USD..." />
-    Price
-</label>
-
-<br />
-<br />
 
 <label style="color: white;">
     <input type="text" @bind="ImageUrl" placeholder="upload images..." />
     ImageUrl
 </label>
 
-<br />
-<br />
-
-<select @bind="Type">
-    <option value="">Select a type</option>
-    <option value="WiredHeadphones">WiredHeadphones</option>
-    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
-</select>
-
-<br />
-<br />
 
 <button @onclick="Submit">Submit</button>
 
-<br /> <br />-->
+-->
 
 
 <div class="page-container">
@@ -140,34 +52,79 @@
 
                 <div class="brand-section">
                     <h5>BRAND</h5>
+                    <select @bind="Brand">
+                        <option value="">Select a Brand</option>
+                        <option value="Sony">Sony</option>
+                        <option value="Bose">Bose</option>
+                        <option value="JBL">JBL</option>
+                    </select>
                 </div>
 
                 <div class="model-section">
                     <h5>MODEL</h5>
+                    <select @bind="Model">
+                        <option value="S1">Select a Model</option>
+                        <option value="S2">S1</option>
+                        <option value="S3">S2</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
 
                 <div class="frequency-range-section">
                     <h5>FREQUENCY RANGE</h5>
-                </div>
-
-                <div class="connection-type-section">
-                    <h5>CONNECTION TYPE</h5>
-                </div>
-
-                <div class="color-section">
-                    <h5>COLOR</h5>
+                    <select @bind="FrequencyRange">
+                        <option value="">Select a Frequency Range</option>
+                        <option value="20-20000hz">20-20000hz</option>
+                        <option value="10-50000hz">10-50000hz</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
 
                 <div class="noise-cancellation-section">
                     <h5>NOISE CANCELLATION</h5>
+                    <input type="checkbox" @bind="NoiseCancellation" />
+                </div>
+
+                <div class="microphone-section">
+                    <h5>MICROPHONE</h5>
+                    <input type="checkbox" @bind="Microphone" />
+                </div>
+
+                <div class="color-section">
+                    <h5>COLOR</h5>
+                    <select @bind="Color">
+                        <option value="">Select a Color</option>
+                        <option value="Red">Red</option>
+                        <option value="Rlue">Blue</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="connection-type-section">
+                    <h5>CONNECTION TYPE</h5>
+                    <select @bind="Type">
+                        <option value="">Select a type</option>
+                        <option value="WiredHeadphones">WiredHeadphones</option>
+                        <option value="BluetoothHeadphones">BluetoothHeadphones</option>
+                    </select>
                 </div>
 
                 <div class="closed-or-open-section">
                     <h5>CLOSED OR OPEN</h5>
+                    <select @bind="ClosedOrOpen">
+                        <option value="">Select Closed or Open</option>
+                        <option value="open">Open</option>
+                        <option value="closed">Closed</option>
+                    </select>
                 </div>
 
                 <div class="condition-section">
                     <h5>CONDITION</h5>
+                    <select @bind="ItemCondition">
+                        <option value="">Select Item Condition</option>
+                        <option value="good">Good</option>
+                        <option value="bad">Bad</option>
+                    </select>
                 </div>
 
                 <div class="description-section">
@@ -184,7 +141,7 @@
 
     <div class="preview-listing-container">
         <h3 class="preview-listing-title">PREVIEW</h3>
-        <p>@Price</p>
+        <p style="color: black;">Price: @Price</p>
     </div>
 </div>
 
