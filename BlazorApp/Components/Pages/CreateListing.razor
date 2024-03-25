@@ -113,10 +113,6 @@
 <br />
 <br />
 
-<!--<label style="color: white;">
-    <input type="text" @bind="ImageUrl" placeholder="upload images..." />
-    ImageUrl
-</label>-->
 <label style="color: white;">
     <input type="file" @onchange="OnFileSelected" />
     Upload Image
@@ -152,41 +148,22 @@
     private int? Price { get; set; }
     private string? ImageUrl { get; set; }
     private string? Type { get; set; }
-
-
-
+    
     private async Task OnFileSelected(ChangeEventArgs e)
     {
-        Account account = new Account(
-            "deskxhjbs",
-            "645315832384482",
-            "22QhwboqxXDprP-oyjPKA1t-2zQ");
-
-        Cloudinary cloudinary = new Cloudinary(account);
-
         var file = e.Value as IBrowserFile;
         if (file != null)
         {
             var fileExtension = Path.GetExtension(file.Name);
-
-            // Generate a unique filename using a GUID and the original file extension
             var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
+            var path = Path.Combine("assets", uniqueFileName);
 
-            // Prepare the file for upload
-            using var stream = file.OpenReadStream();
-            var uploadParams = new ImageUploadParams()
-                {
-                    File = new FileDescription(@"/assets/{uniqueFileName}"),
-                    UseFilename = true,
-                    UniqueFilename = false,
-                    Overwrite = true
-                };
-
-            // Upload the file to Cloudinary
-            var uploadResult = cloudinary.Upload(uploadParams);
+            // Save the file to the disk
+            using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            await file.OpenReadStream().CopyToAsync(fileStream);
 
             // Store the URL of the uploaded image
-            ImageUrl = uploadResult.SecureUrl.ToString();
+            ImageUrl = path;
         }
     }
 
