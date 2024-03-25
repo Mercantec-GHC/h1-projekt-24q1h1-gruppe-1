@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
+    <PackageReference Include="FluentFTP" Version="49.0.2" />
     <PackageReference Include="Npgsql" Version="8.0.2" />
   </ItemGroup>
 

@@ -1,10 +1,10 @@
 ﻿@page "/createlisting"
 @using Npgsql
 @using System.Drawing
+@using CloudinaryDotNet
+@using CloudinaryDotNet.Actions
 
 <PageTitle>Create Listing</PageTitle>
-
-
 
 <h4 style ="color: white;">Create Listing</h4>
 
@@ -111,10 +111,6 @@
 <br />
 <br />
 
-<!--<label style="color: white;">
-    <input type="text" @bind="ImageUrl" placeholder="upload images..." />
-    ImageUrl
-</label>-->
 <label style="color: white;">
     <input type="file" @onchange="OnFileSelected" />
     Upload Image
@@ -137,6 +133,7 @@
 <br /> <br />
 
 @code {
+    private IBrowserFile? selectedFile;
     private string? Brand { get; set; }
     private string? Model { get; set; }
     private string? Color { get; set; }
@@ -150,30 +147,39 @@
     private string? ImageUrl { get; set; }
     private string? Type { get; set; }
 
-    private async Task OnFileSelected(ChangeEventArgs e)
+    
+    private void OnFileSelected(ChangeEventArgs e)
     {
-        var file = e.Value as IBrowserFile;
-        if (file != null)
-        {
-            var fileExtension = Path.GetExtension(file.Name);
-        
-            // Generate a unique filename using a GUID and the original file extension
-            var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
-
-            var path = Path.Combine("assets", uniqueFileName);
-        
-            // Save the file
-            using var stream = file.OpenReadStream();
-            using var fileStream = new FileStream(path, FileMode.Create);
-            await stream.CopyToAsync(fileStream);
-        
-            // Store the unique file path
-            ImageUrl = path;
-        }
+        selectedFile = e.Value as IBrowserFile;
     }
 
-    private void Submit()
+    private async Task Submit()
     {
+        if (selectedFile != null)
+        {
+            Account account = new Account(
+                "deskxhjbs",
+                "645315832384482",
+                "22QhwboqxXDprP-oyjPKA1t-2zQ");
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            var fileExtension = Path.GetExtension(selectedFile.Name);
+            var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
+
+            using var stream = selectedFile.OpenReadStream();
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(uniqueFileName, stream),
+                UseFilename = true,
+                UniqueFilename = true,
+                Overwrite = true
+            };
+
+            var uploadResult = cloudinary.Upload(uploadParams);
+            ImageUrl = uploadResult.SecureUrl.ToString();
+        }
+
         string connectionString = "Host=ep-blue-fire-a2nnh5p7.eu-central-1.aws.neon.tech;Username=sonaredb_owner;Password=8LlUVraRtDs9;Database=sonaredb;SSL Mode=Require";
         using var connection = new NpgsqlConnection(connectionString);
         connection.Open();
