@@ -124,12 +124,67 @@
 <div class="page-container">
     <div class="create-listing-container">
         <h3 class="create-listing-title">CREATE LISTING</h3>
+
         <div class="create-listing-attributes-container">
 
+            <div class="attributes-container">
+
+                <div class="upload-image-section">
+                    <h5>UPLOAD IMAGE</h5>
+                </div>
+
+                <div class="price-section">
+                    <h5>PRICE</h5>
+                    <input type="text" @bind="Price" placeholder="Price here" />
+                </div>
+
+                <div class="brand-section">
+                    <h5>BRAND</h5>
+                </div>
+
+                <div class="model-section">
+                    <h5>MODEL</h5>
+                </div>
+
+                <div class="frequency-range-section">
+                    <h5>FREQUENCY RANGE</h5>
+                </div>
+
+                <div class="connection-type-section">
+                    <h5>CONNECTION TYPE</h5>
+                </div>
+
+                <div class="color-section">
+                    <h5>COLOR</h5>
+                </div>
+
+                <div class="noise-cancellation-section">
+                    <h5>NOISE CANCELLATION</h5>
+                </div>
+
+                <div class="closed-or-open-section">
+                    <h5>CLOSED OR OPEN</h5>
+                </div>
+
+                <div class="condition-section">
+                    <h5>CONDITION</h5>
+                </div>
+
+                <div class="description-section">
+                    <h5>DESCRIPTION</h5>
+                </div>
+
+            </div>
+            
         </div>
+
     </div>
+
+
+
     <div class="preview-listing-container">
         <h3 class="preview-listing-title">PREVIEW</h3>
+        <p>@Price</p>
     </div>
 </div>
 
