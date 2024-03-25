@@ -149,7 +149,6 @@
     private int? Price { get; set; }
     private string? ImageUrl { get; set; }
     private string? Type { get; set; }
-    private string? ImagePath { get; set; }
 
     private async Task OnFileSelected(ChangeEventArgs e)
     {
@@ -169,7 +168,7 @@
             await stream.CopyToAsync(fileStream);
         
             // Store the unique file path
-            ImagePath = path;
+            ImageUrl = path;
         }
     }
 
