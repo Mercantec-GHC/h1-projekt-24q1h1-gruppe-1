@@ -3,8 +3,6 @@
 @using System.Drawing
 @inject NavigationManager NavigationManager
 
-
-
 <div class="login-container">
     <h4 class="login-title">Login</h4>
 
@@ -46,7 +44,7 @@
             cmd.Connection = connection;
 
             cmd.CommandText = @"
-            SELECT UserName, UserPassword
+            SELECT UserName
             FROM UserAccount
             WHERE UserName = @UserName AND UserPassword = @UserPassword";
 
@@ -57,6 +55,8 @@
             {
                 if (reader.Read())
                 {
+                   
+                    UpdateUserStatus();
                     NavigationManager.NavigateTo("/myprofile");
                 }
                 else
@@ -66,4 +66,27 @@
             }
         }
     }
+
+    private void UpdateUserStatus()
+    {
+        string connectionString = "Host=ep-blue-fire-a2nnh5p7.eu-central-1.aws.neon.tech;Username=sonaredb_owner;Password=8LlUVraRtDs9;Database=sonaredb;SSL Mode=Require";
+
+        using var connection = new NpgsqlConnection(connectionString);
+        connection.Open();
+
+        using (var cmd = new NpgsqlCommand())
+        {
+            cmd.Connection = connection;
+
+            cmd.CommandText = @"
+            UPDATE UserAccount
+            SET Status = 'Logged_on'
+            WHERE UserName = @UserName";
+
+            cmd.Parameters.AddWithValue("@UserName", UserName);
+
+            cmd.ExecuteNonQuery();
+        }
+    }
 }
+
