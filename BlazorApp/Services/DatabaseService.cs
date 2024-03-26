@@ -19,7 +19,7 @@ namespace BlazorApp.Services
             {
                 connection.Open();
 
-                string sql = "SELECT Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, type FROM Headsets";
+                string sql = "SELECT Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, type, Description FROM Headsets";
                 using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                 {
                     using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -40,7 +40,8 @@ namespace BlazorApp.Services
                                     reader.IsDBNull(reader.GetOrdinal("ClosedOrOpen")) ? null : reader["ClosedOrOpen"].ToString(),
                                     reader.IsDBNull(reader.GetOrdinal("ItemCondition")) ? null : reader["ItemCondition"].ToString(),
                                     reader.IsDBNull(reader.GetOrdinal("Price")) ? 0 : Convert.ToInt32(reader["Price"]),
-                                    reader.IsDBNull(reader.GetOrdinal("ImageUrl")) ? null : reader["ImageUrl"].ToString())
+                                    reader.IsDBNull(reader.GetOrdinal("ImageUrl")) ? null : reader["ImageUrl"].ToString(),
+                                    reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader["Description"].ToString())
                                 );
                             }
                             else if (type == "BluetoothHeadphones")
@@ -56,7 +57,8 @@ namespace BlazorApp.Services
                                     reader.IsDBNull(reader.GetOrdinal("ClosedOrOpen")) ? null : reader["ClosedOrOpen"].ToString(),
                                     reader.IsDBNull(reader.GetOrdinal("ItemCondition")) ? null : reader["ItemCondition"].ToString(),
                                     reader.IsDBNull(reader.GetOrdinal("Price")) ? 0 : Convert.ToInt32(reader["Price"]),
-                                    reader.IsDBNull(reader.GetOrdinal("ImageUrl")) ? null : reader["ImageUrl"].ToString())
+                                    reader.IsDBNull(reader.GetOrdinal("ImageUrl")) ? null : reader["ImageUrl"].ToString(),
+                                    reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader["Description"].ToString())
                                 );
                             }
                         }

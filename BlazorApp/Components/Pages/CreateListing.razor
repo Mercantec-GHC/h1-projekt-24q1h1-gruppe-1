@@ -1,5 +1,6 @@
 ﻿@page "/createlisting"
 @using Npgsql
+@using System.ComponentModel
 @inject IConfiguration config
 
 <PageTitle>Create Listing</PageTitle>
@@ -136,6 +137,11 @@
 <br />
 <br />
 
+<input type="text" @bind="Description" placeholder="Enter description"/>
+
+<br />
+<br />
+
 <button @onclick="Submit">Submit</button>
 
 <br />
@@ -154,6 +160,7 @@
     private int? Price { get; set; }
     private string? ImageUrl { get; set; }
     private string? Type { get; set; }
+    private string? Description { get; set; }
 
     private long maxFileSize = 1024 * 1024 * 3; // 3 mb
     private int maxAllowedFiles = 3;
@@ -199,8 +206,8 @@
             cmd.Connection = connection;
 
             cmd.CommandText = @"
-            INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, Type)
-            VALUES(@Brand, @Model, @Color, @FrequencyRange, @Microphone, @TypeOfConnection, @NoiseCancellation, @ClosedOrOpen, @ItemCondition, @Price, @ImageUrl, @Type);";
+            INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, Type, Description)
+            VALUES(@Brand, @Model, @Color, @FrequencyRange, @Microphone, @TypeOfConnection, @NoiseCancellation, @ClosedOrOpen, @ItemCondition, @Price, @ImageUrl, @Type, @Description);";
 
             cmd.Parameters.AddWithValue("Brand", Brand ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Model", Model ?? (object)DBNull.Value);
@@ -214,6 +221,7 @@
             cmd.Parameters.AddWithValue("Price", Price ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("ImageUrl", $"/assets/{ImageFilename}" ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Type", Type ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("Description", Description ?? (object)DBNull.Value);
 
             cmd.ExecuteNonQuery();
         }

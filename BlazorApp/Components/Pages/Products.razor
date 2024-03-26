@@ -71,7 +71,7 @@ else
                     headset.closedOrOpen.ToLower().Contains(keyword) ||
                     headset.itemCondition.ToLower().Contains(keyword) ||
                     // headset.type.ToLower().Contains(keyword) ||
-                    // headset.description.ToLower().Contains(keyword) ||
+                    headset.description.ToLower().Contains(keyword) ||
                     headset.price.ToString().Contains(keyword)
                 )
             ).ToList();
