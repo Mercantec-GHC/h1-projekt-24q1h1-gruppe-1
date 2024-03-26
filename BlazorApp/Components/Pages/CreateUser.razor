@@ -7,6 +7,11 @@
 <br />
 <br />
 
+<input type="text" @bind="UserName" placeholder="Choose a Username" />
+
+<br />
+<br />
+
 
 <input type="text" @bind="FirstName" placeholder="Enter First Name" />
 
@@ -62,8 +67,9 @@
 <button @onclick="Submit">Submit</button>
 
 @code {
-    private string? LastName { get; set; }
+    private string? UserName { get; set; }
     private string? FirstName { get; set; }
+    private string? LastName { get; set; }
     private int? YearOfBirth { get; set; }
     private string? Email { get; set; }
     private int? Phonenumber{ get; set; }
@@ -71,6 +77,8 @@
     private string? Address { get; set; }
     private string? Country { get; set; }
     private string? City { get; set; }
+
+
 
     private void Submit()
     {
@@ -82,9 +90,10 @@
             cmd.Connection = connection;
 
             cmd.CommandText = @"
-            INSERT INTO UserAccount(FirstName, LastName, YearOfBirth, Email, Phonenumber, UserPassword, Address, Country, City)
-            VALUES(@FirstName, @Lastname, @YearOfBirth, @Email, @Phonenumber,@UserPassword, @Address, @Country, @City);";
+            INSERT INTO UserAccount(UserName, FirstName, LastName, YearOfBirth, Email, Phonenumber, UserPassword, Address, Country, City)
+            VALUES(@userName, @FirstName, @Lastname, @YearOfBirth, @Email, @Phonenumber,@UserPassword, @Address, @Country, @City);";
 
+            cmd.Parameters.AddWithValue("Username", UserName ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("FirstName", FirstName ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("LastName", LastName ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("YearOfBirth", YearOfBirth ?? (object)DBNull.Value);
