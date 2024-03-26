@@ -12,5 +12,6 @@ CREATE TABLE Headsets
     ItemCondition VARCHAR(255),
     Price INT,
     ImageUrl VARCHAR(255),
+    Description VARCHAR(255),
     Type VARCHAR(255)
 );
