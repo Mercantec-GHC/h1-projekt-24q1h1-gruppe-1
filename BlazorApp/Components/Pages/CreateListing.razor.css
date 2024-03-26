@@ -16,7 +16,7 @@
     width: 25em;
 }
 
-.create-listing-container, .preview-listing-container {
+.create-listing-container {
     display: flex;
     flex-direction: column;
     background-color: #FFFFFF;
@@ -242,6 +242,8 @@
 }
 
 .description-section {
+    display: flex;
+    flex-direction: row;
     height: 35%;
     width: 100%;
     padding: 0.75em;
@@ -255,4 +257,42 @@ h5 {
 
 h3 {
     user-select: none;
+}
+
+.preview-listing-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border-radius: 2em;
+    height: 95vh;
+    padding: 1.5em;
+}
+
+.preview-listing-attributes-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.publish-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 7.5%;
+}
+
+.publish-button {
+    background-color: rgb(168, 30, 217);
+    border-radius: 5em;
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-weight: bold;
+    font-size: 2em;
+    letter-spacing: 0.2em;
+    color: white;
+    -webkit-filter: drop-shadow(0px 0px 7.5px rgb(168, 30, 217));
 }

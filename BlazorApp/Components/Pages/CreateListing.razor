@@ -1,6 +1,7 @@
 ﻿@page "/createlisting"
 @using Npgsql
 @using System.Drawing
+@inject IConfiguration config
 
 <PageTitle>Create Listing</PageTitle>
 
@@ -9,32 +10,22 @@
 <!--
 
 
-<label style="color: white;">
-    <input type="checkbox" @bind="NoiseCancellation" />
-    Noise Cancellation
-</label>
-
-
-<select @bind="ItemCondition">
-    <option value="">Select Item Condition</option>
-    <option value="good">Good</option>
-    <option value="bad">Bad</option>
-</select>
-
-
-<label style="color: white;">
-    <input type="text" @bind="ImageUrl" placeholder="upload images..." />
-    ImageUrl
-</label>
-
-
 <button @onclick="Submit">Submit</button>
 
 -->
 
+@if (errors.Count > 0)
+{
+    @foreach (var error in errors)
+    {
+        <div class="alert alert-danger" role="alert">
+            @error
+        </div>
+    }
+}
 
 <div class="page-container">
-    <div class="create-listing-container">
+    ´<!--<div class="create-listing-container">
         <h3 class="create-listing-title">CREATE LISTING</h3>
 
         <div class="create-listing-attributes-container">
@@ -43,6 +34,7 @@
 
                 <div class="upload-image-section">
                     <h5>UPLOAD IMAGE</h5>
+                    <InputFile OnChange="@OnFileSelected" multiple />
                 </div>
 
                 <div class="price-section">
@@ -135,13 +127,23 @@
             
         </div>
 
-    </div>
+    </div>-->
 
 
 
     <div class="preview-listing-container">
         <h3 class="preview-listing-title">PREVIEW</h3>
-        <p style="color: black;">Price: @Price</p>
+
+        <div class="preview-listing-attributes-container">
+            <div class="preview-attributes">
+                <p>test</p>
+            </div>
+            <div class="publish-button-container">
+
+                <button class="publish-button" @onclick="Submit">PUBLISH</button>
+
+            </div>
+        </div>
     </div>
 </div>
 
@@ -149,7 +151,14 @@
 
 
 
+<!--
+    
+<p style="color: black;">Price: @Price</p>
 
+
+<button class="publish-button" @onclick="Submit">Submit</button>
+
+-->
 
 
 
@@ -177,6 +186,40 @@
     private string? ImageUrl { get; set; }
     private string? Type { get; set; }
 
+    private long maxFileSize = 1024 * 1024 * 3; // 3 mb
+    private int maxAllowedFiles = 3;
+    private List<string> errors = new();
+    private string ImageFilename;
+    private async Task OnFileSelected(InputFileChangeEventArgs e)
+    {
+        errors.Clear();
+
+        if (e.FileCount > maxAllowedFiles)
+        {
+            errors.Add($"Error: Attempting to upload {e.FileCount} files, but only {maxAllowedFiles} files are allowed.");
+            return;
+        }
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                string newFileName = Path.ChangeExtension(Path.GetRandomFileName(), Path.GetExtension(file.Name));
+                string path = Path.Combine(config.GetValue<string>("FileStorage")!, "", newFileName);
+                Directory.CreateDirectory(Path.Combine(config.GetValue<string>("FileStorage")!, ""));
+                await using FileStream fs = new(path, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+
+                ImageUrl = path;
+                ImageFilename = newFileName;
+            }
+            catch (Exception ex)
+            {
+                errors.Add($"File: {file.Name} Error: {ex.Message}");
+            }
+        }
+    }
+
     private void Submit()
     {
         string connectionString = "Host=ep-blue-fire-a2nnh5p7.eu-central-1.aws.neon.tech;Username=sonaredb_owner;Password=8LlUVraRtDs9;Database=sonaredb;SSL Mode=Require";
@@ -200,7 +243,7 @@
             cmd.Parameters.AddWithValue("ClosedOrOpen", ClosedOrOpen ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("ItemCondition", ItemCondition ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Price", Price ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("ImageUrl", ImageUrl ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("ImageUrl", $"/assets/{ImageFilename}" ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Type", Type ?? (object)DBNull.Value);
 
             cmd.ExecuteNonQuery();
