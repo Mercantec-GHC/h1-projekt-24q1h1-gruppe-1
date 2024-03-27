@@ -13,5 +13,6 @@ CREATE TABLE Headsets
     Price INT,
     ImageUrl VARCHAR(255),
     Description VARCHAR(255),
-    Type VARCHAR(255)
+    Type VARCHAR(255),
+	UserAccountID INT REFERENCES UserAccount(ID)
 );
