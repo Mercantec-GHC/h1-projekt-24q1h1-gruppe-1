@@ -1,10 +1,15 @@
 ﻿@page "/createlisting"
 @using Npgsql
+<<<<<<< HEAD
 @using System.ComponentModel
+=======
+@using System.Drawing
+>>>>>>> RasmusBranch
 @inject IConfiguration config
 
 <PageTitle>Create Listing</PageTitle>
 
+<<<<<<< HEAD
 <h4 style="color: white;">Create Listing</h4>
 
 <div class="container-container">
@@ -12,101 +17,175 @@
         <div class="text-container">
 
             <p>Be a cool cat, sell your shit !</p>
+=======
+
+
+<!--
+
+
+<button @onclick="Submit">Submit</button>
+
+-->
+
+@if (errors.Count > 0)
+{
+    @foreach (var error in errors)
+    {
+        <div class="alert alert-danger" role="alert">
+            @error
+>>>>>>> RasmusBranch
         </div>
-        <div class="image-container">
-            <img src="/bootstrap/fat-cat2.png" alt="Image of headset with vibrant color background" draggable="false" />
+    }
+}
+
+<div class="page-container">
+    ´<!--<div class="create-listing-container">
+        <h3 class="create-listing-title">CREATE LISTING</h3>
+
+        <div class="create-listing-attributes-container">
+
+            <div class="attributes-container">
+
+                <div class="upload-image-section">
+                    <h5>UPLOAD IMAGE</h5>
+                    <InputFile OnChange="@OnFileSelected" multiple />
+                </div>
+
+                <div class="price-section">
+                    <h5>PRICE</h5>
+                    <input type="text" @bind="Price" placeholder="Price here" />
+                </div>
+
+                <div class="brand-section">
+                    <h5>BRAND</h5>
+                    <select @bind="Brand">
+                        <option value="">Select a Brand</option>
+                        <option value="Sony">Sony</option>
+                        <option value="Bose">Bose</option>
+                        <option value="JBL">JBL</option>
+                    </select>
+                </div>
+
+                <div class="model-section">
+                    <h5>MODEL</h5>
+                    <select @bind="Model">
+                        <option value="S1">Select a Model</option>
+                        <option value="S2">S1</option>
+                        <option value="S3">S2</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="frequency-range-section">
+                    <h5>FREQUENCY RANGE</h5>
+                    <select @bind="FrequencyRange">
+                        <option value="">Select a Frequency Range</option>
+                        <option value="20-20000hz">20-20000hz</option>
+                        <option value="10-50000hz">10-50000hz</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="noise-cancellation-section">
+                    <h5>NOISE CANCELLATION</h5>
+                    <input type="checkbox" @bind="NoiseCancellation" />
+                </div>
+
+                <div class="microphone-section">
+                    <h5>MICROPHONE</h5>
+                    <input type="checkbox" @bind="Microphone" />
+                </div>
+
+                <div class="color-section">
+                    <h5>COLOR</h5>
+                    <select @bind="Color">
+                        <option value="">Select a Color</option>
+                        <option value="Red">Red</option>
+                        <option value="Rlue">Blue</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="connection-type-section">
+                    <h5>CONNECTION TYPE</h5>
+                    <select @bind="Type">
+                        <option value="">Select a type</option>
+                        <option value="WiredHeadphones">WiredHeadphones</option>
+                        <option value="BluetoothHeadphones">BluetoothHeadphones</option>
+                    </select>
+                </div>
+
+                <div class="closed-or-open-section">
+                    <h5>CLOSED OR OPEN</h5>
+                    <select @bind="ClosedOrOpen">
+                        <option value="">Select Closed or Open</option>
+                        <option value="open">Open</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+
+                <div class="condition-section">
+                    <h5>CONDITION</h5>
+                    <select @bind="ItemCondition">
+                        <option value="">Select Item Condition</option>
+                        <option value="good">Good</option>
+                        <option value="bad">Bad</option>
+                    </select>
+                </div>
+
+                <div class="description-section">
+                    <h5>DESCRIPTION</h5>
+                </div>
+
+            </div>
+            
+        </div>
+
+    </div>-->
+
+
+
+    <div class="preview-listing-container">
+        <h3 class="preview-listing-title">PREVIEW</h3>
+
+        <div class="preview-listing-attributes-container">
+            <div class="preview-attributes">
+                <p>test</p>
+            </div>
+            <div class="publish-button-container">
+
+                <button class="publish-button" @onclick="Submit">PUBLISH</button>
+
+            </div>
         </div>
     </div>
 </div>
 
-<select @bind="Brand">
-    <option value="">Select a Brand</option>
-    <option value="Sony">Sony</option>
-    <option value="Bose">Bose</option>
-    <option value="JBL">JBL</option>
-</select>
 
-<br />
-<br />
 
-<select @bind="Model">
-    <option value="S1">Select a Model</option>
-    <option value="S2">S1</option>
-    <option value="S3">S2</option>
-    <option value="Other">Other</option>
-</select>
 
-<br />
-<br />
 
-<select @bind="Color">
-    <option value="">Select a Color..</option>
-    <option value="Red">Red</option>
-    <option value="Rlue">Blue</option>
-    <option value="Other">Other</option>
-</select>
+<!--
+    
+<p style="color: black;">Price: @Price</p>
 
-<br />
-<br />
 
-<select @bind="FrequencyRange">
-    <option value="">Select a Frequency Range</option>
-    <option value="20-20000hz">20-20000hz</option>
-    <option value="10-50000hz">10-50000hz</option>
-    <option value="Other">Other</option>
-</select>
+<button class="publish-button" @onclick="Submit">Submit</button>
 
-<br />
-<br />
+-->
 
-<label style="color: white;">
-    <input type="checkbox" @bind="Microphone" />
-    Microphone
-</label>
 
-<br />
-<br />
 
-<select @bind="TypeOfConnection">
-    <option value="">Select a Type of Connection</option>
-    <option value="WiredHeadphones">WiredHeadphones</option>
-    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
-</select>
 
-<br />
-<br />
 
-<label style="color: white;">
-    <input type="checkbox" @bind="NoiseCancellation" />
-    Noise Cancellation
-</label>
 
-<br />
-<br />
 
-<select @bind="ClosedOrOpen">
-    <option value="">Select Closed or Open</option>
-    <option value="open">Open</option>
-    <option value="closed">Closed</option>
-</select>
 
-<br />
-<br />
 
-<select @bind="ItemCondition">
-    <option value="">Select Item Condition</option>
-    <option value="good">Good</option>
-    <option value="bad">Bad</option>
-</select>
 
-<br />
-<br />
 
-<label style="color: white;">
-    <input type="text" @bind="Price" placeholder="Provide the price in USD..." />
-    Price
-</label>
 
+<<<<<<< HEAD
 <br />
 <br />
 
@@ -146,6 +225,8 @@
 
 <br />
 <br />
+=======
+>>>>>>> RasmusBranch
 
 @code {
     private string? Brand { get; set; }
@@ -161,6 +242,40 @@
     private string? ImageUrl { get; set; }
     private string? Type { get; set; }
     private string? Description { get; set; }
+
+    private long maxFileSize = 1024 * 1024 * 3; // 3 mb
+    private int maxAllowedFiles = 3;
+    private List<string> errors = new();
+    private string ImageFilename;
+    private async Task OnFileSelected(InputFileChangeEventArgs e)
+    {
+        errors.Clear();
+
+        if (e.FileCount > maxAllowedFiles)
+        {
+            errors.Add($"Error: Attempting to upload {e.FileCount} files, but only {maxAllowedFiles} files are allowed.");
+            return;
+        }
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                string newFileName = Path.ChangeExtension(Path.GetRandomFileName(), Path.GetExtension(file.Name));
+                string path = Path.Combine(config.GetValue<string>("FileStorage")!, "", newFileName);
+                Directory.CreateDirectory(Path.Combine(config.GetValue<string>("FileStorage")!, ""));
+                await using FileStream fs = new(path, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+
+                ImageUrl = path;
+                ImageFilename = newFileName;
+            }
+            catch (Exception ex)
+            {
+                errors.Add($"File: {file.Name} Error: {ex.Message}");
+            }
+        }
+    }
 
     private long maxFileSize = 1024 * 1024 * 3; // 3 mb
     private int maxAllowedFiles = 3;
