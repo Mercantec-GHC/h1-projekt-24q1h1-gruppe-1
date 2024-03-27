@@ -1,0 +1,79 @@
+﻿/*Chat Gpt promted CSS*/
+
+.login-container {
+    max-width: 400px;
+    margin: 100px auto 0;
+    padding: 20px;
+    background-color: #483d8b; 
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); 
+}
+
+.login-title {
+    color: #fff; 
+    text-align: center;
+    font-size: 24px; 
+    margin-bottom: 20px; 
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px; 
+    border: 2px solid #7b68ee; 
+    border-radius: 6px;
+    outline: none;
+    color: #fff; 
+    background-color: #483d8b; 
+}
+
+    .form-input::placeholder {
+        color: #ccc; 
+    }
+
+.form-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #7b68ee; 
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px; 
+}
+
+    .form-button:hover {
+        background-color: #6a5acd; 
+    }
+
+.error-message {
+    color: #ff6347; 
+    margin-top: 10px;
+    text-align: center;
+}
+
+.signup-container {
+    text-align: center;
+    margin-top: 20px; /
+}
+
+.signup-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px; 
+    background-color: #7b68ee; 
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none; 
+}
+
+    .signup-link:hover {
+        background-color: #6a5acd; 
+    }
