@@ -1,31 +1,11 @@
 ﻿@page "/createlisting"
 @using Npgsql
-<<<<<<< HEAD
-@using System.ComponentModel
-=======
 @using System.Drawing
->>>>>>> RasmusBranch
 @inject IConfiguration config
 
 <PageTitle>Create Listing</PageTitle>
 
-<<<<<<< HEAD
-<h4 style="color: white;">Create Listing</h4>
 
-<div class="container-container">
-    <div class="container">
-        <div class="text-container">
-
-            <p>Be a cool cat, sell your shit !</p>
-=======
-
-
-<!--
-
-
-<button @onclick="Submit">Submit</button>
-
--->
 
 @if (errors.Count > 0)
 {
@@ -33,13 +13,12 @@
     {
         <div class="alert alert-danger" role="alert">
             @error
->>>>>>> RasmusBranch
         </div>
     }
 }
 
 <div class="page-container">
-    ´<!--<div class="create-listing-container">
+    ´<div class="create-listing-container">
         <h3 class="create-listing-title">CREATE LISTING</h3>
 
         <div class="create-listing-attributes-container">
@@ -141,7 +120,7 @@
             
         </div>
 
-    </div>-->
+    </div>
 
 
 
@@ -163,71 +142,6 @@
 
 
 
-
-
-<!--
-    
-<p style="color: black;">Price: @Price</p>
-
-
-<button class="publish-button" @onclick="Submit">Submit</button>
-
--->
-
-
-
-
-
-
-
-
-
-
-
-
-<<<<<<< HEAD
-<br />
-<br />
-
-<label style="color: white;">
-    <InputFile OnChange="@OnFileSelected" multiple />
-    Upload Image
-</label>
-@if (errors.Count > 0)
-{
-    <h2>Errors</h2>
-    <ul class="text-danger">
-        @foreach (var error in errors)
-        {
-            <li>@error</li>
-        }
-    </ul>
-}
-
-<br />
-<br />
-
-<select @bind="Type">
-    <option value="">Select a type</option>
-    <option value="WiredHeadphones">WiredHeadphones</option>
-    <option value="BluetoothHeadphones">BluetoothHeadphones</option>
-</select>
-
-<br />
-<br />
-
-<input type="text" @bind="Description" placeholder="Enter description"/>
-
-<br />
-<br />
-
-<button @onclick="Submit">Submit</button>
-
-<br />
-<br />
-=======
->>>>>>> RasmusBranch
-
 @code {
     private string? Brand { get; set; }
     private string? Model { get; set; }
@@ -242,40 +156,6 @@
     private string? ImageUrl { get; set; }
     private string? Type { get; set; }
     private string? Description { get; set; }
-
-    private long maxFileSize = 1024 * 1024 * 3; // 3 mb
-    private int maxAllowedFiles = 3;
-    private List<string> errors = new();
-    private string ImageFilename;
-    private async Task OnFileSelected(InputFileChangeEventArgs e)
-    {
-        errors.Clear();
-
-        if (e.FileCount > maxAllowedFiles)
-        {
-            errors.Add($"Error: Attempting to upload {e.FileCount} files, but only {maxAllowedFiles} files are allowed.");
-            return;
-        }
-
-        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
-        {
-            try
-            {
-                string newFileName = Path.ChangeExtension(Path.GetRandomFileName(), Path.GetExtension(file.Name));
-                string path = Path.Combine(config.GetValue<string>("FileStorage")!, "", newFileName);
-                Directory.CreateDirectory(Path.Combine(config.GetValue<string>("FileStorage")!, ""));
-                await using FileStream fs = new(path, FileMode.Create);
-                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
-
-                ImageUrl = path;
-                ImageFilename = newFileName;
-            }
-            catch (Exception ex)
-            {
-                errors.Add($"File: {file.Name} Error: {ex.Message}");
-            }
-        }
-    }
 
     private long maxFileSize = 1024 * 1024 * 3; // 3 mb
     private int maxAllowedFiles = 3;
