@@ -7,11 +7,11 @@
     <h4 class="login-title">Login</h4>
 
     <div class="form-group">
-        <input class="form-input" type="text" @bind="UserName" placeholder="Username" />
+        <input class="form-input" type="text" @bind="username" placeholder="Username" />
     </div>
 
     <div class="form-group">
-        <input class="form-input" type="password" @bind="UserPassword" placeholder="Password" />
+        <input class="form-input" type="password" @bind="userpassword" placeholder="Password" />
     </div>
 
     <button class="form-button" @onclick="Submit">Login</button>
@@ -28,8 +28,8 @@
 </div>
 
 @code {
-    private string? UserName { get; set; }
-    private string? UserPassword { get; set; }
+    private string? username { get; set; }
+    private string? userpassword { get; set; }
     private string ErrorMessage { get; set; } = "";
 
     private void Submit()
@@ -44,20 +44,21 @@
             cmd.Connection = connection;
 
             cmd.CommandText = @"
-            SELECT UserName
-            FROM UserAccount
-            WHERE UserName = @UserName AND UserPassword = @UserPassword";
+            SELECT username, id
+            FROM useraccount
+            WHERE username = @username AND userpassword = @userpassword";
 
-            cmd.Parameters.AddWithValue("@UserName", UserName);
-            cmd.Parameters.AddWithValue("@UserPassword", UserPassword);
+            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@userpassword", userpassword);
 
             using (var reader = cmd.ExecuteReader())
             {
                 if (reader.Read())
                 {
+                    int userid = reader.GetInt32(reader.GetOrdinal("id"));
                    
                     UpdateUserStatus();
-                    NavigationManager.NavigateTo("/myprofile");
+                    NavigationManager.NavigateTo($"/myprofile/{userid}");
                 }
                 else
                 {
@@ -79,11 +80,11 @@
             cmd.Connection = connection;
 
             cmd.CommandText = @"
-            UPDATE UserAccount
-            SET Status = 'Logged_on'
-            WHERE UserName = @UserName";
+            UPDATE useraccount
+            SET status = 'Logged_on'
+            WHERE username = @username";
 
-            cmd.Parameters.AddWithValue("@UserName", UserName);
+            cmd.Parameters.AddWithValue("@username", username);
 
             cmd.ExecuteNonQuery();
         }
