@@ -296,3 +296,73 @@ h3 {
     color: white;
     -webkit-filter: drop-shadow(0px 0px 7.5px rgb(168, 30, 217));
 }
+
+.preview-attributes {
+    text-align: center;
+    width: 20em;
+}
+
+.preview-picture {
+    background-color: rgba(112, 112, 112, 0.175);
+    aspect-ratio: 1 / 1;
+    width: 68%;
+    margin: 0 auto;
+}
+
+.picture-carousel {
+    display: flex;
+    justify-content: center;
+    margin: 6%;
+    justify-content: space-evenly
+}
+
+.back-button, .next-button {
+    border: none;
+    border-radius: 5em;
+    background-color: rgb(168, 30, 217);
+    color: white;
+    font-weight: bold;
+}
+
+.card-seperator {
+    display: block;
+    background-color: rgba(112, 112, 112, 0.5);
+    height: .2rem;
+    width: 30%;
+    border-radius: 20px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.preview-price-text {
+    margin-bottom: 5%;
+}
+
+.preview-brand-text {
+    font-weight: 700;
+}
+
+.preview-model-text {
+    font-weight: 500;
+}
+
+.preview-text-attributes-flex {
+    display: flex;
+    flex-direction: column;
+    height: 15em;
+    width: 90%;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.preview-color-section, .preview-frequency-range-section, .preview-microphone-section, .preview-connection-type-section, .preview-noise-cancellation-section, .preview-closed-or-open-section, .preview-condition-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.preview-color-section p, .preview-frequency-range-section p, .preview-microphone-section p, .preview-connection-type-section p, .preview-noise-cancellation-section p, .preview-closed-or-open-section p, .preview-condition-section p {
+    margin-bottom: 0.4em;
+}
