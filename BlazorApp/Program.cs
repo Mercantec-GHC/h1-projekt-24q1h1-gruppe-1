@@ -39,6 +39,8 @@ namespace BlazorApp
                 .AddInteractiveServerRenderMode();
 
             app.Run();
+
+            builder.Services.AddHttpContextAccessor();
         }
     }
 }
