@@ -2,7 +2,6 @@
 @using Npgsql
 @using System.Drawing
 @inject NavigationManager NavigationManager
-@inject IHttpContextAccessor HttpContextAccessor
 
 <div class="login-container">
     <h4 class="login-title">Login</h4>
@@ -57,16 +56,6 @@
                 if (reader.Read())
                 {
                     int userid = reader.GetInt32(reader.GetOrdinal("id"));
-
-                    // Set the cookie
-                    var cookieOptions = new CookieOptions
-                    {
-                        Expires = DateTime.Now.AddHours(1), // Set the cookie to expire after 1 hour
-                        HttpOnly = true,
-                        Secure = true,
-                        SameSite = SameSiteMode.Strict
-                    };
-                    HttpContextAccessor.HttpContext.Response.Cookies.Append("UserId", userid.ToString(), cookieOptions);
 
                     UpdateUserStatus();
                     NavigationManager.NavigateTo($"/myprofile/{userid}");
