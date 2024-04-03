@@ -20,6 +20,8 @@ namespace BlazorApp
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            builder.Services.AddScoped<ICookie, Cookie>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

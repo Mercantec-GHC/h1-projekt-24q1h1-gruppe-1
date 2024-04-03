@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.JSInterop" Version="6.0.28" />
     <PackageReference Include="Npgsql" Version="8.0.2" />
   </ItemGroup>
 
