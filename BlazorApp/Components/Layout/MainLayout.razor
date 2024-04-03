@@ -14,10 +14,10 @@
 
 
         <div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
-            <select @onchange="ChangingTheme" style="padding: 8px; border-radius: 20px; border: none; background-color: #9400D3; color: #fff; font-family: 'Arial', sans-serif; font-size: 16px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+            <select @onchange="ChangingTheme" style="padding: 8px; border-radius: 20px; border: none; background-color:#191970; color: #fff; font-family: 'Arial', sans-serif; font-size: 12px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
                 @foreach (var theme in themes)
                 {
-                    <option selected="@IsSelectedTheme(theme)" value="@theme" style="background-color: #fff; color: #9400D3; font-weight: bold; border-bottom: 1px solid#9400D3;">@theme</option>
+                    <option selected="@IsSelectedTheme(theme)" value="@theme" style="background-color: #191970; color: #D3D3D3; font-weight: bold; border-bottom: 1px solid#353935;">@theme</option>
                 }
             </select>
         </div>

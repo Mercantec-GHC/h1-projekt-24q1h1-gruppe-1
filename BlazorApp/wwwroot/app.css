@@ -1,8 +1,7 @@
 :root {
-    
-  /*  light theme*/
+    /*  light theme*/
 
-    --background: white;
+    --background: #E9DCC9;
     --font-color: black;
     --highlight: #f7f7f7;
     --highlight-2: #e2e3e5;
@@ -21,19 +20,6 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-a, .btn-link {
-    color: var(--link);
-}
-
-.alert-secondary{
-    background-color: var(--highlight-2);
-    color: var(--font-color);
-}
-
-div.main{
-    background-color: var(--background);
-    color: var(--font-color);
-}
 
 .btn-primary {
     color: #fff;
