@@ -366,3 +366,29 @@ h3 {
 .preview-color-section p, .preview-frequency-range-section p, .preview-microphone-section p, .preview-connection-type-section p, .preview-noise-cancellation-section p, .preview-closed-or-open-section p, .preview-condition-section p {
     margin-bottom: 0.4em;
 }
+
+
+
+/* 
+
+    1757 pixels W
+
+*/
+
+@media (max-width: 1790px) {
+    .page-container {
+        grid-gap: 2em;
+    }
+}
+
+@media (max-width: 1770px) {
+    .page-container {
+        grid-gap: 1em;
+    }
+}
+
+@media (max-width: 1757px) {
+    .page-container {
+        grid-gap: 1em;
+    }
+}
