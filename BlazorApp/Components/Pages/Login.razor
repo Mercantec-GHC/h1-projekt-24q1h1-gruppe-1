@@ -58,7 +58,7 @@
                 {
                     int userid = reader.GetInt32(reader.GetOrdinal("id"));
 
-                    await cookie.SetValue("mytest20", "Hello Mohsen!");
+                    await cookie.SetValue("id", $"{userid}");
 
                     UpdateUserStatus();
                     NavigationManager.NavigateTo($"/myprofile/{userid}");
