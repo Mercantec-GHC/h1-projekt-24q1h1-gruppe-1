@@ -388,7 +388,63 @@ h3 {
 }
 
 @media (max-width: 1757px) {
-    .page-container {
-        grid-gap: 1em;
+    .create-listing-container {
+        width: 70%;
     }
 }
+
+@media (max-width: 1670px) {
+    h5 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 1515px) {
+    h5 {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 1388px) {
+    .brand-section, .model-section {
+        width: 30%;
+    }
+
+    .attributes-container {
+        justify-content: flex-start;
+        grid-column-gap: 0.5em;
+    }
+
+    .description-section {
+        height: 25%;
+    }
+}
+
+
+@media (max-width: 1168px) {
+    .description-section {
+        height: 25%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .page-container {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .create-listing-container {
+        width: 100%;
+    }
+
+    .description-section {
+        height: 22%;
+    }
+
+    .attributes-container {
+        justify-content: space-between;
+        align-content: space-around;
+        grid-column-gap: 0;
+    }
+}
+
