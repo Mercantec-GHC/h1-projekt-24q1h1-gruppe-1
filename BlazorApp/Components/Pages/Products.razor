@@ -26,10 +26,17 @@ else
                 <div class="card-body">
                     <h5 class="card-title">@headset.brand</h5>
                     <h5 class="card-model-text">@headset.model</h5>
-                    <div class="card-seperator"></div>
+                    <div class="card-separator"></div>
                     <p class="card-text" style="text-align: center;">
                         PRICE: <span style="font-weight: bold;">$@headset.price</span>  <br />
                     </p>
+
+                    @if (!string.IsNullOrEmpty(headset.description))
+                    {
+                        <p class="card-description">@headset.description</p>
+                    }
+
+
                     <div class="center-button-class">
                         <a href="product/@productId" class="btn btn-primary">Show Product</a>
                     </div>
@@ -61,18 +68,15 @@ else
 
             return allProducts.Where(headset =>
                 searchKeywords.All(keyword =>
-                    headset.brand.ToLower().Contains(keyword) ||
-                    headset.model.ToLower().Contains(keyword) ||
-                    headset.color.ToLower().Contains(keyword) ||
-                    headset.frequencyRange.ToLower().Contains(keyword) ||
-                    // headset.microphone.ToString().ToLower() == keyword ||
-                    headset.typeOfConnection.ToLower().Contains(keyword) ||
-                    // headset.noiseCancellation.ToString().ToLower() == keyword ||
-                    headset.closedOrOpen.ToLower().Contains(keyword) ||
-                    headset.itemCondition.ToLower().Contains(keyword) ||
-                    // headset.type.ToLower().Contains(keyword) ||
-                    headset.description.ToLower().Contains(keyword) ||
-                    headset.price.ToString().Contains(keyword)
+                    (headset.brand?.ToLower().Contains(keyword) ?? false) ||
+                    (headset.model?.ToLower().Contains(keyword) ?? false) ||
+                    (headset.color?.ToLower().Contains(keyword) ?? false) ||
+                    (headset.frequencyRange?.ToLower().Contains(keyword) ?? false) ||
+                    (headset.typeOfConnection?.ToLower().Contains(keyword) ?? false) ||
+                    (headset.closedOrOpen?.ToLower().Contains(keyword) ?? false) ||
+                    (headset.itemCondition?.ToLower().Contains(keyword) ?? false) ||
+                    (headset.description?.ToLower().Contains(keyword) ?? false) ||
+                    (headset.price.ToString().Contains(keyword))
                 )
             ).ToList();
         }

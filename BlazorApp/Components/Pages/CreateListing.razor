@@ -5,8 +5,6 @@
 
 <PageTitle>Create Listing</PageTitle>
 
-
-
 @if (errors.Count > 0)
 {
     @foreach (var error in errors)
@@ -18,7 +16,7 @@
 }
 
 <div class="page-container">
-    ´<div class="create-listing-container">
+    <div class="create-listing-container">
         <h3 class="create-listing-title">CREATE LISTING</h3>
 
         <div class="create-listing-attributes-container">
@@ -89,8 +87,8 @@
                     <h5>CONNECTION TYPE</h5>
                     <select @bind="Type">
                         <option value="">Select a type</option>
-                        <option value="WiredHeadphones">WiredHeadphones</option>
-                        <option value="BluetoothHeadphones">BluetoothHeadphones</option>
+                        <option value="WiredHeadphones">Wired Headphones</option>
+                        <option value="BluetoothHeadphones">Bluetooth Headphones</option>
                     </select>
                 </div>
 
@@ -129,7 +127,133 @@
 
         <div class="preview-listing-attributes-container">
             <div class="preview-attributes">
-                <p>test</p>
+                <div class="preview-picture"></div>
+                <div class="picture-carousel">
+                    <button class="back-button">BACK</button>
+                    <button class="next-button">NEXT</button>
+                </div>
+                <div class="card-seperator"></div>
+
+                @if (Price == null)
+                {
+                    <h4 class="preview-price-text">Awaiting price</h4>
+                } else
+                {
+                    <h4 class="preview-price-text">$@Price</h4>
+                }
+
+
+                @if (Brand == null)
+                {
+                    <h2 class="preview-brand-text">Awaiting brand</h2>
+                }
+                else
+                {
+                    <h2 class="preview-brand-text">@Brand</h2>
+                }
+
+
+                @if (Model == null)
+                {
+                    <h3 class="preview-model-text">Awaiting model</h3>
+                }
+                else
+                {
+                    <h3 class="preview-model-text">@Model</h3>
+                }
+                
+
+                
+                <div class="card-seperator"></div>
+
+                <div class="preview-text-attributes-flex">
+
+                    <div class="preview-color-section">
+                        <p style="font-weight: 600;">COLOR</p>
+                        @if (Color == null)
+                        {
+                            <p>WAITING</p>
+                        } 
+                        else
+                        {
+                            <p>@Color</p>
+                        }
+                    </div>
+
+                    <div class="preview-frequency-range-section">
+                        <p style="font-weight: 600;">FREQUENCY RANGE</p>
+                        @if (FrequencyRange == null)
+                        {
+                            <p>WAITING</p>
+                        }
+                        else
+                        {
+                            <p>@FrequencyRange</p>
+                        }
+                    </div>
+                    <div class="preview-microphone-section">
+                        <p style="font-weight: 600;">MICROPHONE</p>
+                        @if (Microphone == null)
+                        {
+                            <p>WAITING</p>
+                        }
+                        else
+                        {
+                            <p>@Microphone</p>
+                        }
+                    </div>
+                    <div class="preview-connection-type-section">
+                        <p style="font-weight: 600;">CONNECTION TYPE</p>
+                        @if (Type == null)
+                        {
+                            <p>WAITING</p>
+                        }
+                        else
+                        {
+                            if (Type == "WiredHeadphones")
+                            {
+                                <p>Wired</p>
+                            } else if (Type == "BluetoothHeadphones")
+                            {
+                                <p>Bluetooth</p>
+                            }
+
+                        }
+                    </div>
+                    <div class="preview-noise-cancellation-section">
+                        <p style="font-weight: 600;">NOISE CANCELLATION</p>
+                        @if (NoiseCancellation == null)
+                        {
+                            <p>WAITING</p>
+                        }
+                        else
+                        {
+                            <p>@NoiseCancellation</p>
+                        }
+                    </div>
+                    <div class="preview-closed-or-open-section">
+                        <p style="font-weight: 600;">CLOSED OR OPEN</p>
+                        @if (ClosedOrOpen == null)
+                        {
+                            <p>WAITING</p>
+                        }
+                        else
+                        {
+                            <p>@ClosedOrOpen.ToUpper()</p>
+                        }
+                    </div>
+                    <div class="preview-condition-section">
+                        <p style="font-weight: 600;">CONDITION</p>
+                        @if (ItemCondition == null)
+                        {
+                            <p>WAITING</p>
+                        }
+                        else
+                        {
+                            <p>@ItemCondition.ToUpper()</p>
+                        }
+                    </div>
+                </div>
             </div>
             <div class="publish-button-container">
 
@@ -139,6 +263,14 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
 
 
 
@@ -155,7 +287,6 @@
     private int? Price { get; set; }
     private string? ImageUrl { get; set; }
     private string? Type { get; set; }
-    private string? Description { get; set; }
 
     private long maxFileSize = 1024 * 1024 * 3; // 3 mb
     private int maxAllowedFiles = 3;
@@ -201,8 +332,8 @@
             cmd.Connection = connection;
 
             cmd.CommandText = @"
-            INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, Type, Description)
-            VALUES(@Brand, @Model, @Color, @FrequencyRange, @Microphone, @TypeOfConnection, @NoiseCancellation, @ClosedOrOpen, @ItemCondition, @Price, @ImageUrl, @Type, @Description);";
+            INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, Type)
+            VALUES(@Brand, @Model, @Color, @FrequencyRange, @Microphone, @TypeOfConnection, @NoiseCancellation, @ClosedOrOpen, @ItemCondition, @Price, @ImageUrl, @Type);";
 
             cmd.Parameters.AddWithValue("Brand", Brand ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Model", Model ?? (object)DBNull.Value);
@@ -216,7 +347,6 @@
             cmd.Parameters.AddWithValue("Price", Price ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("ImageUrl", $"/assets/{ImageFilename}" ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Type", Type ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("Description", Description ?? (object)DBNull.Value);
 
             cmd.ExecuteNonQuery();
         }
