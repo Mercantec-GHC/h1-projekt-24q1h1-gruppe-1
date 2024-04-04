@@ -3,8 +3,6 @@
 <div class="page @GetCssClass()">
     <div class="sidebar">
         <NavMenu />
-
-
     </div>
 
     <main>
@@ -12,20 +10,13 @@
             @Body
         </article>
 
-
         <div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
-            <select @onchange="ChangingTheme" style="padding: 8px; border-radius: 20px; border: none; background-color:#191970; color: #fff; font-family: 'Arial', sans-serif; font-size: 12px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
-                @foreach (var theme in themes)
-                {
-                    <option selected="@IsSelectedTheme(theme)" value="@theme" style="background-color: #191970; color: #D3D3D3; font-weight: bold; border-bottom: 1px solid#353935;">@theme</option>
-                }
-            </select>
+            <button @onclick="ToggleTheme" style="padding: 8px; border-radius: 20px; border: none; background-color: @(isDarkMode ? "#2d2d2d" : "#E9DCC9"); color: @(isDarkMode ? "#fff" : "#000"); font-size: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                @GetButtonText()
+            </button>
         </div>
-
-
     </main>
 </div>
-
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
@@ -33,31 +24,22 @@
     <a class="dismiss">🗙</a>
 </div>
 
-
 @code
 {
-    private string selectedTheme = "Light Theme";
-    private List<string> themes = new List<string> { "Light Theme", "Dark Theme" };
+    private bool isDarkMode = false;
 
     private string GetCssClass()
     {
-        if(selectedTheme == "Light Theme")
-        {
-            return String.Empty;
-        }
-        else
-        {
-            return "dark-mode";
-        }
+        return isDarkMode ? "dark-mode" : "";
     }
 
-    private bool IsSelectedTheme(string theme)
+    private string GetButtonText()
     {
-        return theme == selectedTheme;
-    } 
+        return isDarkMode ? "Dark Mode" : "Light Mode";
+    }
 
-    private void ChangingTheme (ChangeEventArgs e)
+    private void ToggleTheme()
     {
-        selectedTheme = e.Value.ToString();
+        isDarkMode = !isDarkMode;
     }
 }
