@@ -22,6 +22,7 @@
                     <span class="bi bi-basket2-fill-nested-nav-menu" aria-hidden="true"></span> Browse Products
                 </NavLink>
             </div>
+            <!-- Show the createlisting menu item, if user is logged_on -->
             @if (status == "logged_on")
             {
                 <div class="nav-item px-3">
@@ -42,6 +43,7 @@
 
 @code
 {
+    // Retrieve useraccount ID to determine if the user is logged_on or logged_off
     private string? status { get; set; }
 
     private async Task LoadUserProfileAsync()
