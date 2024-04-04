@@ -1,0 +1,55 @@
+﻿.inputbox input[type="text"],
+.inputbox input[type="number"],
+.inputbox input[type="password"],
+.inputbox select {
+   
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #7b68ee;
+    border-radius: 6px;
+    outline: none;
+    color: #fff;
+    background-color: #483d8b
+}
+
+.inputbox input[type="text"]:focus,
+.inputbox input[type="number"]:focus,
+.inputbox input[type="password"]:focus,
+.inputbox select:focus {
+    border-color: #ff69b4; 
+    outline: none;
+}
+
+.container {
+max-width: 400px;
+margin: 20px auto 0;
+padding: 20px;
+background-color: #483d8b;
+border-radius: 8px;
+box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+.submitButton {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 20px; 
+    
+}
+
+.submitButton button {
+        
+    padding: 12px;
+    background-color: #7b68ee;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+    .submitButton button:hover {
+        background-color: #6a5acd;
+    }

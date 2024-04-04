@@ -1,4 +1,4 @@
-﻿/*Chat Gpt promted CSS*/
+﻿
 
 .login-container {
     max-width: 400px;
@@ -20,6 +20,7 @@
     margin-bottom: 20px;
 }
 
+
 .form-input {
     width: 100%;
     padding: 12px; 
@@ -27,8 +28,11 @@
     border-radius: 6px;
     outline: none;
     color: #fff; 
-    background-color: #483d8b; 
+    background-color: #483d8b;
+    
 }
+
+
 
     .form-input::placeholder {
         color: #ccc; 
@@ -58,7 +62,8 @@
 
 .signup-container {
     text-align: center;
-    margin-top: 20px; /
+    margin-top: 20px; 
+    color: white;
 }
 
 .signup-link {
@@ -77,3 +82,10 @@
     .signup-link:hover {
         background-color: #6a5acd; 
     }
+
+.form-input:focus,
+.form-button:focus,
+select:focus {
+    border-color: #ff69b4;
+    outline: none;
+}

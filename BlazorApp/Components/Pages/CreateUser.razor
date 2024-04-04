@@ -3,72 +3,52 @@
 @using System.Drawing
 @inject NavigationManager NavigationManager
 
-<h4 style="color: var(--font-color);">Create a profile</h4>
+<div class="container">
 
-<br />
-<br />
+    <h1 style="color: white; font-size: 16px;  text-align: center;">Create a Profile</h1>
+<div class="inputbox">
+    <input type="text" @bind="UserName" placeholder="Choose a Username" />
+    <br /><br />
+    <input type="text" @bind="FirstName" placeholder="Enter First Name" />
+    <br /><br />
+    <input type="text" @bind="LastName" placeholder="Enter Last Name" />
+    <br /><br />
+    <select @bind="YearOfBirth">
+        <option value="">Year of Birth</option>
+        @for (int year = 1930; year <= DateTime.Now.Year; year++)
+        {
+            <option value="@year">@year</option>
+        }
+    </select>
+    <br /><br />
+    <input type="text" @bind="Email" placeholder="Enter your E-mail address" />
+    <br /><br />
+    <input type="number" @bind="Phonenumber" placeholder=" Enter Phonenumber" />
+    <br /><br />
+    <input type="password" @bind="UserPassword" placeholder="Choose a Password" />
+    <br /><br />
+    <input type="text" @bind="Address" placeholder="Enter your Address" />
+    <br /><br />
+    <input type="text" @bind="Country" placeholder="Country" />
+    <br /><br />
+    <input type="text" @bind="City" placeholder="City" />
+</div>
 
-<input type="text" @bind="UserName" placeholder="Choose a Username" />
-
-<br />
-<br />
-
-<input type="text" @bind="FirstName" placeholder="Enter First Name" />
-
-<br />
-<br />
-
-<input type="text" @bind="LastName" placeholder="Enter Last Name" />
-
-<br /> 
-<br />
-
-<select @bind="YearOfBirth">
-    <option value="">Year of Birth</option>
-    @for (int year = 1930; year <= DateTime.Now.Year; year++)
+    @if (!string.IsNullOrEmpty(ErrorMessage))
     {
-        <option value="@year">@year</option>
+        <p style="color: red; text-align: center; font-size: 14;">@ErrorMessage</p>
     }
-</select>
 
-<br />
-<br />
+    <div class="submitButton">
+        <button @onclick="Submit">Submit</button>
+    </div>
+</div>
 
-<input type="text" @bind="Email" placeholder="Enter your E-mail address" />
 
-<br /> <br />
 
-<input type="number" @bind="Phonenumber" placeholder=" Enter Phonenumber" />
 
-<br />
-<br />
 
-<input type="password" @bind="UserPassword" placeholder="Choose a Password" />
 
-<br /> 
-<br />
-
-<input type="text" @bind="Address" placeholder="Enter your Address" />
-
-<br />
-<br />
-
-<input type="text" @bind="Country" placeholder="Country" />
-
-<br />
-<br />
-
-<input type="text" @bind="City" placeholder="City" />
-
-<br />
-<br />
-
-<button @onclick="Submit">Submit</button>
-
-@if (!string.IsNullOrEmpty(ErrorMessage))
-{
-    <p style="color: red;">@ErrorMessage</p>
-}
 
 
 @code {
