@@ -1,6 +1,7 @@
-﻿@page "/myprofile"
+﻿﻿@page "/myprofile"
 @using Npgsql;
-@inject NavigationManager Navigation
+@inject NavigationManager NavigationManager
+@inject ICookie cookie
 
 <h4 style="color: white;">My Profile</h4>
 
@@ -8,6 +9,77 @@
     <img src="/bootstrap/profile.png" style="width: 300px; height: 300px;" />
 </div>
 
+<div style="color: white">
+    <p><strong>Username:</strong> @username</p>
+    <p><strong>Firstname:</strong> @firstname</p>
+    <p><strong>Lastname:</strong> @lastname</p>
+    <p><strong>Year of birth:</strong> @yearofbirth</p>
+    <p><strong>Email:</strong> @email</p>
+    <p><strong>Phone number:</strong> @phonenumber</p>
+    <p><strong>Address:</strong> @address</p>
+    <p><strong>Country:</strong> @country</p>
+    <p><strong>City:</strong> @city</p>
+    <p><strong>Status:</strong> @status</p>
+</div>
+
 @code {
-    
+    private string? username { get; set; }
+    private string? firstname { get; set; }
+    private string? lastname { get; set; }
+    private int? yearofbirth { get; set; }
+    private string? email { get; set; }
+    private int? phonenumber { get; set; }
+    private string? address { get; set; }
+    private string? country { get; set; }
+    private string? city { get; set; }
+    private string? status { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUserProfileAsync();
+    }
+
+    private async Task LoadUserProfileAsync()
+    {
+        string connectionString = "Host=ep-blue-fire-a2nnh5p7.eu-central-1.aws.neon.tech;Username=sonaredb_owner;Password=8LlUVraRtDs9;Database=sonaredb;SSL Mode=Require";
+
+        using var connection = new NpgsqlConnection(connectionString);
+        connection.Open();
+
+        using (var cmd = new NpgsqlCommand())
+        {
+            cmd.Connection = connection;
+
+            // Retrieve the id from the cookie
+            int userId = int.Parse(await cookie.GetValue("id"));
+
+            cmd.CommandText = @"
+            SELECT username, firstname, lastname, yearofbirth, email, phonenumber, address, country, city, status
+            FROM useraccount
+            WHERE id = @id";
+
+            cmd.Parameters.AddWithValue("@id", userId);
+
+            using (var reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    username = reader.GetString(reader.GetOrdinal("username"));
+                    firstname = reader.GetString(reader.GetOrdinal("firstname"));
+                    lastname = reader.GetString(reader.GetOrdinal("lastname"));
+                    yearofbirth = reader.GetInt32(reader.GetOrdinal("yearofbirth"));
+                    email = reader.GetString(reader.GetOrdinal("email"));
+                    phonenumber = reader.GetInt32(reader.GetOrdinal("phonenumber"));
+                    address = reader.GetString(reader.GetOrdinal("address"));
+                    country = reader.GetString(reader.GetOrdinal("country"));
+                    city = reader.GetString(reader.GetOrdinal("city"));
+                    status = reader.GetString(reader.GetOrdinal("status"));
+                }
+                else
+                {
+                    // Handle the case where user is not found
+                }
+            }
+        }
+    }
 }

@@ -1,4 +1,4 @@
-﻿@page "/login"
+﻿﻿@page "/login"
 @using Npgsql
 @using System.Drawing
 @inject NavigationManager NavigationManager
@@ -61,7 +61,7 @@
                     await cookie.SetValue("id", $"{userid}");
 
                     UpdateUserStatus();
-                    NavigationManager.NavigateTo($"/myprofile/{userid}");
+                    NavigationManager.NavigateTo($"/myprofile/");
                 }
                 else
                 {
