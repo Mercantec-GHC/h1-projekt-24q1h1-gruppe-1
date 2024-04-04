@@ -26,7 +26,7 @@
 <!-- Show products from that specific user -->
 @if (ProductToShow == null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>No products listed</em></p>
 }
 else
 {
@@ -62,7 +62,6 @@ else
             string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
             : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
         {
-
         }
     }
 
