@@ -2,6 +2,7 @@
 @using Npgsql;
 @inject NavigationManager NavigationManager
 @inject ICookie cookie
+@inject List<Headset> allProducts
 
 <h4 style="color: white;">My Profile</h4>
 
@@ -22,7 +23,51 @@
     <p><strong>Status:</strong> @status</p>
 </div>
 
+<!-- Show products from that specific user -->
+@if (ProductToShow == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="grid-container">
+        @foreach (var headset in ProductToShow)
+        {
+            uint productId = headset.Id;
+            <div class="card" style="width: 18rem;">
+                <img src="@headset.imageUrl" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@headset.brand</h5>
+                    <h5 class="card-model-text">@headset.model</h5>
+                    <div class="card-separator"></div>
+                    <p class="card-text" style="text-align: center;">
+                        PRICE: <span style="font-weight: bold;">$@headset.price</span>  <br />
+                    </p>
+
+                    @if (!string.IsNullOrEmpty(headset.description))
+                    {
+                        <p class="card-description">@headset.description</p>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+
 @code {
+    // To instantiate a new instance of Headset to pull individual user headsets
+    public class ConcreteHeadset : Headset
+    {
+        public ConcreteHeadset(string brand, string model, string color, string frequencyRange, bool microphone,
+            string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
+            : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
+        {
+
+        }
+    }
+
+    public List<ConcreteHeadset> ProductToShow;
+
     private string? username { get; set; }
     private string? firstname { get; set; }
     private string? lastname { get; set; }
@@ -44,7 +89,7 @@
         string connectionString = "Host=ep-blue-fire-a2nnh5p7.eu-central-1.aws.neon.tech;Username=sonaredb_owner;Password=8LlUVraRtDs9;Database=sonaredb;SSL Mode=Require";
 
         using var connection = new NpgsqlConnection(connectionString);
-        connection.Open();
+        await connection.OpenAsync(); // Async opening of the connection
 
         using (var cmd = new NpgsqlCommand())
         {
@@ -60,9 +105,9 @@
 
             cmd.Parameters.AddWithValue("@id", userId);
 
-            using (var reader = cmd.ExecuteReader())
+            using (var reader = await cmd.ExecuteReaderAsync())
             {
-                if (reader.Read())
+                if (await reader.ReadAsync())
                 {
                     username = reader.GetString(reader.GetOrdinal("username"));
                     firstname = reader.GetString(reader.GetOrdinal("firstname"));
@@ -77,7 +122,43 @@
                 }
                 else
                 {
-                    // Handle the case where user is not found
+                    // To-do - handle if user not found
+                }
+            }
+        }
+
+        // Fetch headsets related to this user
+        using (var cmd = new NpgsqlCommand())
+        {
+            int userId = int.Parse(await cookie.GetValue("id"));
+            cmd.Connection = connection;
+            cmd.CommandText = @"
+            SELECT * FROM headsets
+            WHERE useraccountid = @userId";
+
+            cmd.Parameters.AddWithValue("@userId", userId);
+
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                ProductToShow = new List<ConcreteHeadset>();
+                while (await reader.ReadAsync())
+                {
+                    var price = reader.IsDBNull(reader.GetOrdinal("price")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("price"));
+                    var headset = new ConcreteHeadset(
+                        reader.IsDBNull(reader.GetOrdinal("brand")) ? null : reader.GetString(reader.GetOrdinal("brand")),
+                        reader.IsDBNull(reader.GetOrdinal("model")) ? null : reader.GetString(reader.GetOrdinal("model")),
+                        reader.IsDBNull(reader.GetOrdinal("color")) ? null : reader.GetString(reader.GetOrdinal("color")),
+                        reader.IsDBNull(reader.GetOrdinal("frequencyRange")) ? null : reader.GetString(reader.GetOrdinal("frequencyRange")),
+                        reader.IsDBNull(reader.GetOrdinal("microphone")) ? false : reader.GetBoolean(reader.GetOrdinal("microphone")),
+                        reader.IsDBNull(reader.GetOrdinal("typeOfConnection")) ? null : reader.GetString(reader.GetOrdinal("typeOfConnection")),
+                        reader.IsDBNull(reader.GetOrdinal("noiseCancellation")) ? false : reader.GetBoolean(reader.GetOrdinal("noiseCancellation")),
+                        reader.IsDBNull(reader.GetOrdinal("closedOrOpen")) ? null : reader.GetString(reader.GetOrdinal("closedOrOpen")),
+                        reader.IsDBNull(reader.GetOrdinal("itemCondition")) ? null : reader.GetString(reader.GetOrdinal("itemCondition")),
+                        price ?? 0,
+                        reader.IsDBNull(reader.GetOrdinal("imageUrl")) ? null : reader.GetString(reader.GetOrdinal("imageUrl")),
+                        reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString(reader.GetOrdinal("description"))
+                    );
+                    ProductToShow.Add(headset);
                 }
             }
         }
