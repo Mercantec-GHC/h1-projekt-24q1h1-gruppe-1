@@ -3,72 +3,49 @@
 @using System.Drawing
 @inject NavigationManager NavigationManager
 
-<h4 style="color: var(--font-color);">Create a profile</h4>
+<div class="container">
 
-<br />
-<br />
+    <h1 style="color: white; font-size: 16px;  text-align: center;">Create a Profile</h1>
+    <div class="inputbox">
+        <input type="text" @bind="UserName" placeholder="Choose a Username" />
+        <br /><br />
+        <input type="text" @bind="FirstName" placeholder="Enter First Name" />
+        <br /><br />
+        <input type="text" @bind="LastName" placeholder="Enter Last Name" />
+        <br /><br />
+        <select @bind="YearOfBirth">
+            <option value="">Year of Birth</option>
+            @for (int year = 1930; year <= DateTime.Now.Year; year++)
+            {
+                <option value="@year">@year</option>
+            }
+        </select>
+        <br /><br />
+        <input type="text" @bind="Email" placeholder="Enter your E-mail address" />
+        <br /><br />
+        <input type="number" @bind="Phonenumber" placeholder=" Enter Phonenumber" />
+        <br /><br />
+        <input type="password" @bind="UserPassword" placeholder="Choose a Password" />
+        <br /><br />
+        <input type="text" @bind="Address" placeholder="Enter your Address" />
+        <br /><br />
+        <input type="text" @bind="Country" placeholder="Country" />
+        <br /><br />
+        <input type="text" @bind="City" placeholder="City" />
+    </div>
 
-<input type="text" @bind="UserName" placeholder="Choose a Username" />
-
-<br />
-<br />
-
-<input type="text" @bind="FirstName" placeholder="Enter First Name" />
-
-<br />
-<br />
-
-<input type="text" @bind="LastName" placeholder="Enter Last Name" />
-
-<br /> 
-<br />
-
-<select @bind="YearOfBirth">
-    <option value="">Year of Birth</option>
-    @for (int year = 1930; year <= DateTime.Now.Year; year++)
+    @if (!string.IsNullOrEmpty(ErrorMessage))
     {
-        <option value="@year">@year</option>
+        <p style="color: red; text-align: center; font-size: 14;">@ErrorMessage</p>
     }
-</select>
 
-<br />
-<br />
+    <div class="submitButton">
+        <button @onclick="Submit">Submit</button>
+    </div>
+</div>
 
-<input type="text" @bind="Email" placeholder="Enter your E-mail address" />
 
-<br /> <br />
 
-<input type="number" @bind="Phonenumber" placeholder=" Enter Phonenumber" />
-
-<br />
-<br />
-
-<input type="password" @bind="UserPassword" placeholder="Choose a Password" />
-
-<br /> 
-<br />
-
-<input type="text" @bind="Address" placeholder="Enter your Address" />
-
-<br />
-<br />
-
-<input type="text" @bind="Country" placeholder="Country" />
-
-<br />
-<br />
-
-<input type="text" @bind="City" placeholder="City" />
-
-<br />
-<br />
-
-<button @onclick="Submit">Submit</button>
-
-@if (!string.IsNullOrEmpty(ErrorMessage))
-{
-    <p style="color: red;">@ErrorMessage</p>
-}
 
 
 @code {
@@ -79,7 +56,7 @@
     private string? LastName { get; set; }
     private int? YearOfBirth { get; set; }
     private string? Email { get; set; }
-    private int? Phonenumber{ get; set; }
+    private int? Phonenumber { get; set; }
     private string? UserPassword { get; set; }
     private string? Address { get; set; }
     private string? Country { get; set; }
@@ -91,7 +68,7 @@
     {
         ErrorMessage = "";
 
-        if(string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) ||
+        if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) ||
         !YearOfBirth.HasValue || string.IsNullOrEmpty(Email) || !Phonenumber.HasValue || string.IsNullOrEmpty(UserPassword) ||
         string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(Country) || string.IsNullOrEmpty(City))
         {
@@ -100,33 +77,32 @@
         }
         else
         {
-            
-        string connectionString = "Host=ep-blue-fire-a2nnh5p7.eu-central-1.aws.neon.tech;Username=sonaredb_owner;Password=8LlUVraRtDs9;Database=sonaredb;SSL Mode=Require";
-        using var connection = new NpgsqlConnection(connectionString);
-        connection.Open();
-        using (var cmd = new NpgsqlCommand())
-        {
-            cmd.Connection = connection;
+            string connectionString = "Host=ep-blue-fire-a2nnh5p7.eu-central-1.aws.neon.tech;Username=sonaredb_owner;Password=8LlUVraRtDs9;Database=sonaredb;SSL Mode=Require";
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
 
-            cmd.CommandText = @"
+                cmd.CommandText = @"
             INSERT INTO UserAccount(UserName, FirstName, LastName, YearOfBirth, Email, Phonenumber, UserPassword, Address, Country, City, Status)
             VALUES(@userName, @FirstName, @Lastname, @YearOfBirth, @Email, @Phonenumber,@UserPassword, @Address, @Country, @City, @Status);";
 
-            cmd.Parameters.AddWithValue("Username", UserName ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("FirstName", FirstName ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("LastName", LastName ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("YearOfBirth", YearOfBirth ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("Email", Email ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("Phonenumber", Phonenumber ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("UserPassword", UserPassword?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("Address", Address ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("Country", Country ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("City", City ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("Status", Status ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("Username", UserName ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("FirstName", FirstName ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("LastName", LastName ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("YearOfBirth", YearOfBirth ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("Email", Email ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("Phonenumber", Phonenumber ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("UserPassword", UserPassword ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("Address", Address ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("Country", Country ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("City", City ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("Status", Status ?? (object)DBNull.Value);
 
-            cmd.ExecuteNonQuery();
-        }
+                cmd.ExecuteNonQuery();
+            }
             NavigationManager.NavigateTo("/login");
+        }
     }
-  }
 }
