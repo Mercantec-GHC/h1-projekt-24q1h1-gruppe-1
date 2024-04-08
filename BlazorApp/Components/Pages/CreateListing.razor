@@ -120,7 +120,8 @@
         </div>
 
     </div>
-
+    
+    <!-- PREVIEW -->
     <div class="preview-listing-container">
         <h3 class="preview-listing-title">PREVIEW</h3>
 
@@ -274,6 +275,7 @@
     private int? Price { get; set; }
     private string? ImageUrl { get; set; }
     private string? Type { get; set; }
+    private string? Description { get; set; }
 
     private long maxFileSize = 1024 * 1024 * 3; // 3 mb
     private int maxAllowedFiles = 1;
@@ -321,8 +323,8 @@
             cmd.Connection = connection;
 
             cmd.CommandText = $@"
-            INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, Type, useraccountid)
-            VALUES(@Brand, @Model, @Color, @FrequencyRange, @Microphone, @TypeOfConnection, @NoiseCancellation, @ClosedOrOpen, @ItemCondition, @Price, @ImageUrl, @Type, {userId});";
+            INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, Type, Description, useraccountid)
+            VALUES(@Brand, @Model, @Color, @FrequencyRange, @Microphone, @TypeOfConnection, @NoiseCancellation, @ClosedOrOpen, @ItemCondition, @Price, @ImageUrl, @Type, @Description, {userId});";
 
             cmd.Parameters.AddWithValue("Brand", Brand ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Model", Model ?? (object)DBNull.Value);
@@ -336,6 +338,7 @@
             cmd.Parameters.AddWithValue("Price", Price ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("ImageUrl", $"/assets/{ImageFilename}" ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Type", Type ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("Description", Description ?? (object)DBNull.Value);
 
             cmd.ExecuteNonQuery();
         }
