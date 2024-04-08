@@ -43,7 +43,6 @@ namespace Domain_Models
             this.description = description;
         }
     }
-
     public class WiredHeadphones : Headset
     {
         public WiredHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
