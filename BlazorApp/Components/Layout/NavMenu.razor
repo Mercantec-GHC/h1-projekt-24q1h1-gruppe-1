@@ -23,7 +23,7 @@
                 </NavLink>
             </div>
             <!-- Show the createlisting menu item, if user is logged_on -->
-            @if (status == "logged_on")
+            @if (status == "Logged_on")
             {
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="createlisting">
@@ -35,9 +35,9 @@
         </nav>
 
         <div class="nav-register-buttons">
-            @if (status == "logged_on")
+            @if (status == "Logged_on")
             {
-                <button onclick="@Logout()" class="logout-button"><div class="nav-item px-3">LOGOUT</div></button>
+                //<button onclick="@Logout()" class="logout-button"><div class="nav-item px-3">LOGOUT</div></button>
             }
             else
             {
@@ -73,10 +73,7 @@
             // Retrieve the id from the cookie
             int userId = int.Parse(await cookie.GetValue("id"));
 
-            cmd.CommandText = @"
-                SELECT status
-                FROM useraccount
-                WHERE id = @id";
+            cmd.CommandText = @"SELECT status FROM useraccount WHERE id = @id";
 
             cmd.Parameters.AddWithValue("@id", userId);
 

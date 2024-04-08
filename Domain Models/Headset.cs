@@ -42,62 +42,25 @@ namespace Domain_Models
             this.imageUrl = imageUrl;
             this.description = description;
         }
-
-        public virtual void DisplayHeadset()
-        {
-            Console.WriteLine($"{this.brand}");
-            Console.WriteLine($"{this.model}");
-            Console.WriteLine($"{this.color}");
-            Console.WriteLine($"{this.frequencyRange}");
-            Console.WriteLine($"{this.microphone}");
-            Console.WriteLine($"{this.typeOfConnection}");
-            Console.WriteLine($"{this.noiseCancellation}");
-            Console.WriteLine($"{this.closedOrOpen}");
-            Console.WriteLine($"{this.itemCondition}");
-            Console.WriteLine($"{this.description}");
-        }
     }
 
-    public abstract class Headphones : Headset
+    public class WiredHeadphones : Headset
     {
-        public Headphones(string brand, string model, string color, string frequencyRange, bool microphone,
-           string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
-             : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
-        {
-
-        }
-    }
-
-    public class WiredHeadphones : Headphones
-    {
-        public string cableType { get; set; }
         public WiredHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
            string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
            : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
         {
 
         }
-        public override void DisplayHeadset()
-        {
-            base.DisplayHeadset();
-            Console.WriteLine($"The cable is{this.cableType}");
-        }
     }
 
-    public class BluetoothHeadphones : Headphones
+    public class BluetoothHeadphones : Headset
     {
-        public double bluetoothVersion { get; set; }
-
         public BluetoothHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
             string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
             : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
         {
 
-        }
-        public override void DisplayHeadset()
-        {
-            base.DisplayHeadset();
-            Console.WriteLine($"This headset comes with {bluetoothVersion}");
         }
     }
 }
