@@ -8,12 +8,9 @@ namespace Domain_Models
 {
     public abstract class UserAccount
     {
-
         public uint Id { get; set; }
         private static uint lastId = 0;
-
         public string url { get; set; }
-
         public string userName { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
@@ -21,13 +18,9 @@ namespace Domain_Models
         public string email { get; set; }
         public int phoneNumber { get; set; }
         public string userPassword { get; set; }
-
         public string address { get; set; }
-
         public string country { get; set; }
-
         public string city { get; set; }
-
         public string status { get; set; }
 
 
@@ -46,7 +39,6 @@ namespace Domain_Models
             this.country = country;
             this.city = city;
             this.status = status;
-            
         }
     }
 
