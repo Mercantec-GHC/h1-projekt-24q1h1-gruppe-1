@@ -163,16 +163,16 @@
     align-items: center;
     padding-top: 3em;
 }
-
 .nav-register-buttons {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 16%;
     align-items: center;
+    justify-content: flex-end
 }
 
-.login-button, .register-button {
+.login-button, .register-button, .logout-button {
     border-radius: 5em;
     font-size: 1.5em;
     font-weight: bold;
@@ -194,6 +194,14 @@
     letter-spacing: 0.2em;
     -webkit-filter: drop-shadow(0px 0px 7.5px rgb(168, 30, 217));
 }
+
+.logout-button {
+    height: 50%;
+    border: none;
+    background-color: rgb(226, 38, 38);
+    color: white;
+}
+
 
 .nav-item ::deep .nav-link {
     color: black;

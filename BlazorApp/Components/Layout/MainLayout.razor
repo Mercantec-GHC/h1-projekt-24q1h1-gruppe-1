@@ -1,4 +1,8 @@
-﻿@inherits LayoutComponentBase
+﻿@using BlazorApp.Authentication
+@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
 
 <div class="page @GetCssClass()">
     <div class="sidebar">
@@ -9,7 +13,6 @@
         <article class="content px-4" style="padding-top: 0px;">
             @Body
         </article>
-
         <div style="position: fixed; top: 70px; left: 20px; z-index: 1000;">
             <button @onclick="ToggleTheme" style="padding: 8px; border-radius: 20px; border: none; background-color: @(isDarkMode ? "#2d2d2d" : "#E9DCC9"); color: @(isDarkMode ? "#fff" : "#000"); font-size: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
                 @GetButtonText()
@@ -41,5 +44,12 @@
     private void ToggleTheme()
     {
         isDarkMode = !isDarkMode;
+    }
+
+    private async Task Logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        navManager.NavigateTo("/", true);
     }
 }

@@ -1,6 +1,9 @@
+using BlazorApp.Authentication;
 using BlazorApp.Components;
 using BlazorApp.Services;
 using Domain_Models;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace BlazorApp
 {
@@ -20,6 +23,13 @@ namespace BlazorApp
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            // Authentication (login)
+            builder.Services.AddAuthenticationCore();
+            builder.Services.AddScoped<ProtectedSessionStorage>();
+            builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+            builder.Services.AddSingleton<UserAccountService>();
+
+            // Cookies
             builder.Services.AddScoped<ICookie, Cookie>();
 
             var app = builder.Build();

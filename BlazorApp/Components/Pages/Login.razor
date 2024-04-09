@@ -1,6 +1,11 @@
 ﻿@page "/login"
+@inject UserAccountService UserAccountService
+@inject IJSRuntime js
+@inject AuthenticationStateProvider authStateProverider
 @using Npgsql
 @using System.Drawing
+@using BlazorApp.Authentication
+@using Microsoft.AspNetCore.Components.Authorization
 @inject NavigationManager NavigationManager
 @inject ICookie cookie
 
@@ -8,11 +13,11 @@
     <h4 class="login-title">Login</h4>
 
     <div class="form-group">
-        <input class="form-input" type="text" @bind="username" placeholder="Username" />
+        <input class="form-input" type="text" @bind="model.username" placeholder="Username" />
     </div>
 
     <div class="form-group">
-        <input class="form-input" type="password" @bind="userpassword" placeholder="Password" />
+        <input class="form-input" type="password" @bind="model.userpassword" placeholder="Password" />
     </div>
 
     <button class="form-button" @onclick="Submit">Login</button>
@@ -21,14 +26,43 @@
         <div>Or sign up using</div>
         <a href="/createuser" class="signup-link">Sign up</a>
     </div>
-
+    
+<!--
     @if (!string.IsNullOrEmpty(ErrorMessage))
     {
         <p class="error-message">@ErrorMessage</p>
     }
+    -->
 </div>
 
 @code {
+
+    private class Model
+    {
+        public string username { get; set; }
+        public string userpassword { get; set; }
+    }
+
+    private Model model = new Model();
+
+    private async Task Submit()
+    {
+        var userAccount = UserAccountService.GetByUserName(model.username);
+        if (userAccount == null || userAccount.Password != model.userpassword)
+        {
+            await js.InvokeVoidAsync("alert", "Invalid Username or Password");
+            return;
+        }
+
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProverider;
+        await customAuthStateProvider.UpdateAuthenticationState(new UserSession
+        {
+            UserName = userAccount.UserName
+            //Role = userAccount.Role
+        });
+        NavigationManager.NavigateTo("/", true);
+    }
+    /*
     private string? username { get; set; }
     private string? userpassword { get; set; }
     private string ErrorMessage { get; set; } = "";
@@ -93,4 +127,5 @@
             cmd.ExecuteNonQuery();
         }
     }
+    */
 }

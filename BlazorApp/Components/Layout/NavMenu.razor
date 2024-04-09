@@ -1,6 +1,10 @@
-﻿@using Npgsql;
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Npgsql;
 @using BlazorApp.Services
+@using BlazorApp.Authentication
 @inject ICookie cookie
+@inject NavigationManager navManager
+@inject AuthenticationStateProvider authStateProvider
 
 <div class="top-row ps-3 navbar navbar-dark">
     <h3>SONARE</h3>
@@ -16,45 +20,42 @@
                     <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
                 </NavLink>
             </div>
-
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="products">
                     <span class="bi bi-basket2-fill-nested-nav-menu" aria-hidden="true"></span> Browse Products
                 </NavLink>
             </div>
             <!-- Show the createlisting menu item, if user is logged_on -->
-            @if (status == "Logged_on")
-            {
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="createlisting">
-                        <span class="bi bi-plus-circle-fill-nested-nav-menu" aria-hidden="true"></span> Create Listing
-                    </NavLink>
-                </div>
-            }
-
+            <AuthorizeView Roles="Administrator">
+                <Authorized>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="createlisting">
+                            <span class="bi bi-plus-circle-fill-nested-nav-menu" aria-hidden="true"></span> Create Listing
+                        </NavLink>
+                    </div>
+                </Authorized>
+            </AuthorizeView>
         </nav>
-
         <div class="nav-register-buttons">
-            @if (status == "Logged_on")
-            {
-                //<button onclick="@Logout()" class="logout-button"><div class="nav-item px-3">LOGOUT</div></button>
-            }
-            else
-            {
-                <button class="login-button"><div class="nav-item px-3"><NavLink class="nav-link" href="login">LOGIN</NavLink></div></button>
-                <button class="register-button"><div class="nav-item px-3"><NavLink class="nav-link" href="createuser">REGISTER</NavLink></div></button>
-            }
+            <AuthorizeView>
+                <NotAuthorized>
+                    <button class="login-button">
+                        <div class="nav-item px-3"><NavLink class="nav-link" href="login">LOGIN</NavLink></div></button>
+                    <button class="register-button">
+                        <div class="nav-item px-3"><NavLink class="nav-link" href="createuser">REGISTER</NavLink></div></button>
+                </NotAuthorized>
+                <Authorized>
+                    <button class="logout-button">
+                        <div class="nav-item px-3"><NavLink class="nav-link" @onclick="Logout" href="javascript:void(0)">LOGOUT</NavLink></div>
+                    </button>
+                </Authorized>
+            </AuthorizeView>
         </div>
     </div>
 </div>
 
 @code
 {
-    // Must be fixed
-    private void Logout()
-    {
-        return;
-    }
 
     // Retrieve useraccount ID to determine if the user is logged_on or logged_off
     private string? status { get; set; }
@@ -89,5 +90,12 @@
                 }
             }
         }
+    }
+
+    private async Task Logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        navManager.NavigateTo("/", true);
     }
 }

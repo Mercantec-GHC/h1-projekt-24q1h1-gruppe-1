@@ -1,15 +1,19 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
 
 <PageTitle>Welcome to Sonare</PageTitle>
-
-<div class="container-container">
-    <div class="container">
-        <div class="text-container">
-            <h4>DISCOVER THE <span style="animation: glow 2s ease-in-out infinite alternate;">ULTIMATE</span><br>LISTENING EXPERIENCE</h4>
-            <p>Unmute Your Savings. Buy & Sell Used Headsets Here!</p>
+<AuthorizeView>
+    <NotAuthorized>
+        <div class="container-container">
+            <div class="container">
+                <div class="text-container">
+                    <h4>DISCOVER THE <span style="animation: glow 2s ease-in-out infinite alternate;">ULTIMATE</span><br>LISTENING EXPERIENCE</h4>
+                    <p>Unmute Your Savings. Buy & Sell Used Headsets Here!</p>
+                </div>
+                <div class="image-container">
+                    <img src="/frontpage-picture.png" alt="Image of headset with vibrant color background" draggable="false" />
+                </div>
+            </div>
         </div>
-        <div class="image-container">
-            <img src="/frontpage-picture.png" alt="Image of headset with vibrant color background" draggable="false" />
-        </div>
-    </div>
-</div>
+    </NotAuthorized>
+</AuthorizeView>
