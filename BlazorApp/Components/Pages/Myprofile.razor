@@ -42,7 +42,7 @@ else
                     <h5 class="card-model-text">@headset.model</h5>
                     <div class="card-separator"></div>
                     <p class="card-text" style="text-align: center;">
-                        PRICE: <span style="font-weight: bold;">$@headset.price</span>  <br />
+                        PRICE: <span style="font-weight: bold;">$@headset.price</span> <br />
                     </p>
 
                     @if (!string.IsNullOrEmpty(headset.description))
@@ -81,7 +81,15 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadUserProfileAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadUserProfileAsync();
+            StateHasChanged(); // Trigger a UI update after loading data
+        }
     }
 
     private async Task LoadUserProfileAsync()
@@ -119,10 +127,6 @@ else
                     country = reader.GetString(reader.GetOrdinal("country"));
                     city = reader.GetString(reader.GetOrdinal("city"));
                     status = reader.GetString(reader.GetOrdinal("status"));
-                }
-                else
-                {
-                    // To-do - handle if user not found
                 }
             }
         }

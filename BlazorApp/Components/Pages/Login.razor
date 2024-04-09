@@ -2,12 +2,9 @@
 @inject UserAccountService UserAccountService
 @inject IJSRuntime js
 @inject AuthenticationStateProvider authStateProverider
-@using Npgsql
-@using System.Drawing
 @using BlazorApp.Authentication
 @using Microsoft.AspNetCore.Components.Authorization
 @inject NavigationManager NavigationManager
-@inject ICookie cookie
 
 <div class="login-container">
     <h4 class="login-title">Login</h4>
@@ -26,13 +23,6 @@
         <div>Or sign up using</div>
         <a href="/createuser" class="signup-link">Sign up</a>
     </div>
-    
-<!--
-    @if (!string.IsNullOrEmpty(ErrorMessage))
-    {
-        <p class="error-message">@ErrorMessage</p>
-    }
-    -->
 </div>
 
 @code {
@@ -58,74 +48,7 @@
         await customAuthStateProvider.UpdateAuthenticationState(new UserSession
         {
             UserName = userAccount.UserName
-            //Role = userAccount.Role
         });
-        NavigationManager.NavigateTo("/", true);
+        NavigationManager.NavigateTo("/myprofile", true);
     }
-    /*
-    private string? username { get; set; }
-    private string? userpassword { get; set; }
-    private string ErrorMessage { get; set; } = "";
-
-    private async Task Submit()
-    {
-        string connectionString = "Host=ep-blue-fire-a2nnh5p7.eu-central-1.aws.neon.tech;Username=sonaredb_owner;Password=8LlUVraRtDs9;Database=sonaredb;SSL Mode=Require";
-
-        using var connection = new NpgsqlConnection(connectionString);
-        connection.Open();
-
-        using (var cmd = new NpgsqlCommand())
-        {
-            cmd.Connection = connection;
-
-            cmd.CommandText = @"
-            SELECT username, id
-            FROM useraccount
-            WHERE username = @username AND userpassword = @userpassword";
-
-            cmd.Parameters.AddWithValue("@username", username);
-            cmd.Parameters.AddWithValue("@userpassword", userpassword);
-
-            using (var reader = cmd.ExecuteReader())
-            {
-                if (reader.Read())
-                {
-                    int userid = reader.GetInt32(reader.GetOrdinal("id"));
-
-                    await cookie.SetValue("id", $"{userid}");
-
-                    UpdateUserStatus();
-                    NavigationManager.NavigateTo($"/myprofile/");
-                }
-                else
-                {
-                    ErrorMessage = "Wrong username or password, please try again.";
-                }
-            }
-        }
-    }
-
-    // Update the user status to logged_on after login.
-    private void UpdateUserStatus()
-    {
-        string connectionString = "Host=ep-blue-fire-a2nnh5p7.eu-central-1.aws.neon.tech;Username=sonaredb_owner;Password=8LlUVraRtDs9;Database=sonaredb;SSL Mode=Require";
-
-        using var connection = new NpgsqlConnection(connectionString);
-        connection.Open();
-
-        using (var cmd = new NpgsqlCommand())
-        {
-            cmd.Connection = connection;
-
-            cmd.CommandText = @"
-            UPDATE useraccount
-            SET status = 'Logged_on'
-            WHERE username = @username";
-
-            cmd.Parameters.AddWithValue("@username", username);
-
-            cmd.ExecuteNonQuery();
-        }
-    }
-    */
 }
