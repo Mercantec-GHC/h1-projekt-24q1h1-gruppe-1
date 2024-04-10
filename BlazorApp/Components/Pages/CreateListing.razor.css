@@ -243,11 +243,26 @@
 
 .description-section {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 35%;
     width: 100%;
     padding: 0.75em;
     margin-top: 5%;
+}
+
+.description-section input {
+    flex-grow: 1;
+    border: none;
+    border-radius: 2em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border: 2px solid rgba(168, 30, 217, 0);
+    -webkit-transition: 0.5s;
+    outline: none;
+}
+
+.description-section input:focus {
+    border: 2px solid rgba(168, 30, 217, 1);
 }
 
 h5 {
