@@ -57,7 +57,6 @@
     private string? Address { get; set; }
     private string? Country { get; set; }
     private string? City { get; set; }
-    private string Status = "Logged_off";
 
     private void Submit()
     {
@@ -80,8 +79,8 @@
                 cmd.Connection = connection;
 
                 cmd.CommandText = @"
-            INSERT INTO UserAccount(UserName, FirstName, LastName, YearOfBirth, Email, Phonenumber, UserPassword, Address, Country, City, Status)
-            VALUES(@userName, @FirstName, @Lastname, @YearOfBirth, @Email, @Phonenumber,@UserPassword, @Address, @Country, @City, @Status);";
+            INSERT INTO UserAccount(UserName, FirstName, LastName, YearOfBirth, Email, Phonenumber, UserPassword, Address, Country, City)
+            VALUES(@userName, @FirstName, @Lastname, @YearOfBirth, @Email, @Phonenumber,@UserPassword, @Address, @Country, @City);";
 
                 cmd.Parameters.AddWithValue("Username", UserName ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("FirstName", FirstName ?? (object)DBNull.Value);
@@ -93,7 +92,6 @@
                 cmd.Parameters.AddWithValue("Address", Address ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("Country", Country ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("City", City ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("Status", Status ?? (object)DBNull.Value);
 
                 cmd.ExecuteNonQuery();
             }
