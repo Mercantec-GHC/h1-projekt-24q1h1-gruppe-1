@@ -191,7 +191,7 @@ else
             await cmd.ExecuteNonQueryAsync();
         }
 
-        // After successfully deleting the product, remove it from the UI list
+        // After deleting the product, remove it from the UI list
         ProductToShow.RemoveAll(p => p.Id == productId);
 
         // Refresh the UI
