@@ -22,7 +22,6 @@
     <p><strong>Address:</strong> @address</p>
     <p><strong>Country:</strong> @country</p>
     <p><strong>City:</strong> @city</p>
-    <p><strong>Status:</strong> @status</p>
 </div>
 
 <!-- Show products from that specific user -->
@@ -80,7 +79,6 @@ else
     private string? address { get; set; }
     private string? country { get; set; }
     private string? city { get; set; }
-    private string? status { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -110,7 +108,7 @@ else
             int userId = int.Parse(await cookie.GetValue("id"));
 
             cmd.CommandText = @"
-            SELECT username, firstname, lastname, yearofbirth, email, phonenumber, address, country, city, status
+            SELECT username, firstname, lastname, yearofbirth, email, phonenumber, address, country, city
             FROM useraccount
             WHERE id = @id";
 
@@ -129,7 +127,6 @@ else
                     address = reader.GetString(reader.GetOrdinal("address"));
                     country = reader.GetString(reader.GetOrdinal("country"));
                     city = reader.GetString(reader.GetOrdinal("city"));
-                    status = reader.GetString(reader.GetOrdinal("status"));
                 }
             }
         }

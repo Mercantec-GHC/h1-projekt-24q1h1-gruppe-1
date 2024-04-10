@@ -21,10 +21,9 @@ namespace Domain_Models
         public string address { get; set; }
         public string country { get; set; }
         public string city { get; set; }
-        public string status { get; set; }
 
 
-        public UserAccount(string userName, string firstName, string lastName, int yearOfBirth, string email, int phoneNumber, string userPassword, string address, string country, string city, string status)
+        public UserAccount(string userName, string firstName, string lastName, int yearOfBirth, string email, int phoneNumber, string userPassword, string address, string country, string city)
         {
             this.url = $"createuser/{lastId}";
             Id = lastId++;
@@ -38,7 +37,6 @@ namespace Domain_Models
             this.address = address;
             this.country = country;
             this.city = city;
-            this.status = status;
         }
     }
 }
