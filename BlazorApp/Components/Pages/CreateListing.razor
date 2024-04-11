@@ -3,6 +3,7 @@
 @using System.Drawing
 @inject IConfiguration config
 @inject ICookie cookie
+@inject NavigationManager NavigationManager
 
 <PageTitle>Create Listing</PageTitle>
 
@@ -343,5 +344,6 @@
 
             cmd.ExecuteNonQuery();
         }
+        NavigationManager.NavigateTo("/myprofile", true);
     }
 }
