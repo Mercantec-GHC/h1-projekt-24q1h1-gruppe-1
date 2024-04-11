@@ -34,7 +34,7 @@ else
     <div class="grid-container">
         @foreach (var headset in ProductToShow)
         {
-            uint productId = headset.Id;
+            int productId = headset.id;
             <div class="card" style="width: 18rem;">
                 <img src="@headset.imageUrl" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -61,15 +61,16 @@ else
     // Instantiate a new instance of Headset to pull individual user headsets
     public class ConcreteHeadset : Headset
     {
-        public ConcreteHeadset(string brand, string model, string color, string frequencyRange, bool microphone,
+        public ConcreteHeadset(int id, string brand, string model, string color, string frequencyRange, bool microphone,
             string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
-            : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
+            : base(id, brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
         {
         }
     }
 
     public List<ConcreteHeadset> ProductToShow;
 
+    private int? id { get; set; }
     private string? username { get; set; }
     private string? firstname { get; set; }
     private string? lastname { get; set; }
@@ -148,7 +149,9 @@ else
                 while (await reader.ReadAsync())
                 {
                     var price = reader.IsDBNull(reader.GetOrdinal("price")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("price"));
+                    var id = reader.IsDBNull(reader.GetOrdinal("id")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("id"));
                     var headset = new ConcreteHeadset(
+                        id ?? 0,
                         reader.IsDBNull(reader.GetOrdinal("brand")) ? null : reader.GetString(reader.GetOrdinal("brand")),
                         reader.IsDBNull(reader.GetOrdinal("model")) ? null : reader.GetString(reader.GetOrdinal("model")),
                         reader.IsDBNull(reader.GetOrdinal("color")) ? null : reader.GetString(reader.GetOrdinal("color")),
@@ -168,8 +171,7 @@ else
         }
     }
 
-    // Not working at the moment!
-    private async Task DeleteProduct(uint productId)
+    private async Task DeleteProduct(int productId)
     {
         string connectionString = "Host=ep-blue-fire-a2nnh5p7.eu-central-1.aws.neon.tech;Username=sonaredb_owner;Password=8LlUVraRtDs9;Database=sonaredb;SSL Mode=Require";
 
@@ -178,7 +180,6 @@ else
 
         using (var cmd = new NpgsqlCommand())
         {
-            Console.WriteLine(@productId);
             cmd.Connection = connection;
             cmd.CommandText = @"
             DELETE FROM Headsets
@@ -192,7 +193,7 @@ else
         }
 
         // After deleting the product, remove it from the UI list
-        ProductToShow.RemoveAll(p => p.Id == productId);
+        ProductToShow.RemoveAll(p => p.id == productId);
 
         // Refresh the UI
         StateHasChanged();

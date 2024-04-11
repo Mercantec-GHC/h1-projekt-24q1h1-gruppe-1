@@ -19,7 +19,7 @@ namespace BlazorApp.Services
             {
                 connection.Open();
 
-                string sql = "SELECT Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, type, Description FROM Headsets";
+                string sql = "SELECT id, Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, type, Description FROM Headsets order by id";
                 using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                 {
                     using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -30,6 +30,7 @@ namespace BlazorApp.Services
                             if (type == "WiredHeadphones")
                             {
                                 allProducts.Add(new WiredHeadphones(
+                                    reader.IsDBNull(reader.GetOrdinal("id")) ? 0 : Convert.ToInt32(reader["id"]),
                                     reader.IsDBNull(reader.GetOrdinal("Brand")) ? null : reader["Brand"].ToString(),
                                     reader.IsDBNull(reader.GetOrdinal("Model")) ? null : reader["Model"].ToString(),
                                     reader.IsDBNull(reader.GetOrdinal("Color")) ? null : reader["Color"].ToString(),
@@ -47,6 +48,7 @@ namespace BlazorApp.Services
                             else if (type == "BluetoothHeadphones")
                             {
                                 allProducts.Add(new BluetoothHeadphones(
+                                    reader.IsDBNull(reader.GetOrdinal("id")) ? 0 : Convert.ToInt32(reader["id"]),
                                     reader.IsDBNull(reader.GetOrdinal("Brand")) ? null : reader["Brand"].ToString(),
                                     reader.IsDBNull(reader.GetOrdinal("Model")) ? null : reader["Model"].ToString(),
                                     reader.IsDBNull(reader.GetOrdinal("Color")) ? null : reader["Color"].ToString(),

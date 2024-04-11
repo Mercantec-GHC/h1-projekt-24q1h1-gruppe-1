@@ -19,7 +19,7 @@ else
     <div class="grid-container">
         @foreach (var headset in ProductToShow)
         {
-            uint productId = headset.Id;
+            int productId = headset.id;
             <div class="card" style="width: 18rem;">
                 <img src="@headset.imageUrl" class="card-img-top" alt="...">
                 <div class="card-body">

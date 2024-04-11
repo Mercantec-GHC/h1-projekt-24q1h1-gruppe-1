@@ -9,8 +9,8 @@ namespace Domain_Models
 {
     public abstract class Headset
     {
-        public uint Id { get; set; }
-        private static uint lastId = 0;
+        public int id { get; set; }
+        //private static uint lastId = 0;
         public string Url { get; set; }
         public string brand { get; set; }
         public string model { get; set; }
@@ -25,10 +25,11 @@ namespace Domain_Models
         public string imageUrl { get; set; }
         public string description { get; set; }
 
-        public Headset(string brand, string model, string color, string frequencyRange, bool microphone, string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
+        public Headset(int id, string brand, string model, string color, string frequencyRange, bool microphone, string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
         {
-            this.Url = $"headset/{lastId}";
-            Id = lastId++;
+            //this.Url = $"headset/{lastId}";
+            //Id = lastId++;
+            this.id = id;
             this.brand = brand;
             this.model = model;
             this.color = color;
@@ -45,9 +46,9 @@ namespace Domain_Models
     }
     public class WiredHeadphones : Headset
     {
-        public WiredHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
+        public WiredHeadphones(int id, string brand, string model, string color, string frequencyRange, bool microphone,
            string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
-           : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
+           : base(id, brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
         {
 
         }
@@ -55,9 +56,9 @@ namespace Domain_Models
 
     public class BluetoothHeadphones : Headset
     {
-        public BluetoothHeadphones(string brand, string model, string color, string frequencyRange, bool microphone,
+        public BluetoothHeadphones(int id, string brand, string model, string color, string frequencyRange, bool microphone,
             string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
-            : base(brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
+            : base(id, brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
         {
 
         }
