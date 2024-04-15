@@ -34,6 +34,7 @@
 
     protected override void OnInitialized()
     {
-        ProductToShow = allProducts[int.Parse(productId)];
+        int id = int.Parse(productId);
+        ProductToShow = allProducts[id - 1];
     }
 }
