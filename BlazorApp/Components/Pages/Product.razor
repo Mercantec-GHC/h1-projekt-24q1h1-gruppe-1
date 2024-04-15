@@ -35,6 +35,15 @@
     protected override void OnInitialized()
     {
         int id = int.Parse(productId);
-        ProductToShow = allProducts[id - 1];
+        ProductToShow = null; // Initialize to null in case no product is found
+
+        foreach (var product in allProducts)
+        {
+            if (product.id == id)
+            {
+                ProductToShow = product;
+                break; // Exit the loop once the product is found
+            }
+        }
     }
 }
