@@ -46,41 +46,60 @@ else
 
 @code {
     public string SearchTerm { get; set; } = "";
-    public List<Headset> ProductToShow;
+    public List<Headset> ProductToShow; //List that will be displayed after filtering
 
-    protected override void OnInitialized()
+    protected override void OnInitialized() //intializing ProductToShow with allProducts injected into it
     {
         ProductToShow = allProducts;
     }
 
     public void FilterAndUpdateHeadsets()
     {
-        ProductToShow = FilterBrand(allProducts, SearchTerm.ToLower());
+        ProductToShow = FilterBrand(allProducts, SearchTerm.ToLower()); //Updates productsToShow based on searchterms
     }
 
-    public List<Headset> FilterBrand(List<Headset> allProducts, string searchTerm)
+    public List<Headset> FilterBrand(List<Headset> allProducts, string searchTerm)  //Filtering the products with the two parameters
     {
+        List<Headset> filteredProducts = new List<Headset>(); // Create list to hold the filtered products
+
         if (!string.IsNullOrEmpty(searchTerm))
         {
-            string[] searchKeywords = searchTerm.Split(' ');
+            string[] searchKeywords = searchTerm.Split(' '); //If search term is not empty split by white space
 
-            return allProducts.Where(headset =>
-                searchKeywords.All(keyword =>
-                    (headset.brand?.ToLower().Contains(keyword) ?? false) ||
-                    (headset.model?.ToLower().Contains(keyword) ?? false) ||
-                    (headset.color?.ToLower().Contains(keyword) ?? false) ||
-                    (headset.frequencyRange?.ToLower().Contains(keyword) ?? false) ||
-                    (headset.typeOfConnection?.ToLower().Contains(keyword) ?? false) ||
-                    (headset.closedOrOpen?.ToLower().Contains(keyword) ?? false) ||
-                    (headset.itemCondition?.ToLower().Contains(keyword) ?? false) ||
-                    (headset.description?.ToLower().Contains(keyword) ?? false) ||
-                    (headset.price.ToString().Contains(keyword))
-                )
-            ).ToList();
+            foreach (var product in allProducts)
+            {
+                bool matchesAllKeywords = true; //Each product is set to true
+
+                foreach (var keyword in searchKeywords)
+                {
+                    string lowerKeyword = keyword.ToLower(); //Iterates over each keyword in search terms and checks for a match
+
+                    if (!(product.brand?.ToLower().Contains(lowerKeyword) ?? false) && //"?" Safe navigation avoid null exception, "??" return false if null, "!" set to true if not a match
+                        !(product.model?.ToLower().Contains(lowerKeyword) ?? false) &&
+                        !(product.color?.ToLower().Contains(lowerKeyword) ?? false) &&
+                        !(product.frequencyRange?.ToLower().Contains(lowerKeyword) ?? false) &&
+                        !(product.typeOfConnection?.ToLower().Contains(lowerKeyword) ?? false) &&
+                        !(product.closedOrOpen?.ToLower().Contains(lowerKeyword) ?? false) &&
+                        !(product.itemCondition?.ToLower().Contains(lowerKeyword) ?? false) &&
+                        !(product.description?.ToLower().Contains(lowerKeyword) ?? false) &&
+                        !product.price.ToString().Contains(keyword)) // Dont need "??" cause won't return null
+                    {
+                        matchesAllKeywords = false; //To remain true all brand, model.. etc. must be false
+                        break;
+                    }
+                }
+
+                if (matchesAllKeywords)
+                {
+                    filteredProducts.Add(product); //If all keywords match product is added to list
+                }
+            }
         }
         else
         {
-            return allProducts;
+            filteredProducts = allProducts;
         }
+
+        return filteredProducts;//Showing all products by default
     }
 }
