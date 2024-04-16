@@ -279,22 +279,22 @@
     private string? Type { get; set; }
     private string? Description { get; set; }
 
-    private long maxFileSize = 1024 * 1024 * 3; // 3 mb
+    private long maxFileSize = 1024 * 1024 * 3; // file size allowed 3 mb
     private int maxAllowedFiles = 1;
-    private List<string> errors = new();
-    private string ImageFilename;
+    private List<string> errors = new(); // Store errors during file upload or form submission
+    private string ImageFilename; // store file name of image
 
-    private async Task OnFileSelected(InputFileChangeEventArgs e)
+    private async Task OnFileSelected(InputFileChangeEventArgs e) //Called when user selects a file to upload
     {
         errors.Clear();
 
-        if (e.FileCount > maxAllowedFiles)
+        if (e.FileCount > maxAllowedFiles) //Checks if files exceeds maximum allowed files
         {
             errors.Add($"Error: Attempting to upload {e.FileCount} files, but only {maxAllowedFiles} files are allowed.");
             return;
         }
 
-        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles)) // generates random file name, saves to servers file system and updates img url and img filename 
         {
             try
             {
@@ -309,7 +309,7 @@
             }
             catch (Exception ex)
             {
-                errors.Add($"File: {file.Name} Error: {ex.Message}");
+                errors.Add($"File: {file.Name} Error: {ex.Message}"); // Error message if any error occurs in file format proces
             }
         }
     }
@@ -321,7 +321,7 @@
         connection.Open();
         using (var cmd = new NpgsqlCommand())
         {
-            int userId = int.Parse(await cookie.GetValue("id"));
+            int userId = int.Parse(await cookie.GetValue("id")); // Retrieves user id from the cookie
             cmd.Connection = connection;
 
             cmd.CommandText = $@"

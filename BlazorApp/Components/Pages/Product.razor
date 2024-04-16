@@ -1,7 +1,8 @@
 ﻿@page "/product/{productId}"
 @inject List<Headset> allProducts
 
-<PageTitle>Product @ProductToShow.brand</PageTitle>
+
+<PageTitle>Product @ProductToShow.brand</PageTitle> 
 <div class="card" style="width: 18rem;">
     <img src="@ProductToShow.imageUrl" class="card-img-top" alt="...">
     <div class="card-body">
@@ -26,14 +27,28 @@
     </div>
 </div>
 
+
+
 @code {
-    [Parameter]
-    public string productId { get; set; }
+[Parameter]
+public string productId { get; set; } // Retrieve Id of the product from url
 
-    public Headset ProductToShow;
+public Headset ProductToShow; // Holds details of the product
 
-    protected override void OnInitialized()
-    {
-        ProductToShow = allProducts[int.Parse(productId)];
+protected override void OnInitialized()
+{
+    int id = int.Parse(productId); // Parsed to integer
+    ProductToShow = null; // Initialize to null in case no product is found
+
+        foreach (var product in allProducts) // If a product with the same ID as productId is found, it is assigned to ProductToShow and the loop breaks.
+     
+        if (product.id == id)
+        {
+            ProductToShow = product;
+            break; // Exit the loop once the product is found
+        }
     }
 }
+}
+
+     

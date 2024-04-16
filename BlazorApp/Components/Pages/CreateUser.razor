@@ -34,9 +34,9 @@
         <input type="text" @bind="City" placeholder="City" />
     </div>
 
-    @if (!string.IsNullOrEmpty(ErrorMessage))
+    @if (!string.IsNullOrEmpty(ErrorMessage)) 
     {
-        <p style="color: red; text-align: center; font-size: 14;">@ErrorMessage</p>
+        <p style="color: red; text-align: center; font-size: 14;">@ErrorMessage</p> 
     }
 
     <div class="submitButton">
@@ -82,7 +82,7 @@
             INSERT INTO UserAccount(UserName, FirstName, LastName, YearOfBirth, Email, Phonenumber, UserPassword, Address, Country, City)
             VALUES(@userName, @FirstName, @Lastname, @YearOfBirth, @Email, @Phonenumber,@UserPassword, @Address, @Country, @City);";
 
-                cmd.Parameters.AddWithValue("Username", UserName ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("Username", UserName ?? (object)DBNull.Value); //null-coalescing operator
                 cmd.Parameters.AddWithValue("FirstName", FirstName ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("LastName", LastName ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("YearOfBirth", YearOfBirth ?? (object)DBNull.Value);

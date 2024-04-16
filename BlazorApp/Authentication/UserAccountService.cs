@@ -1,10 +1,12 @@
 ﻿using Npgsql;
 
+// Managing user accounts by retrieving Userdata from DB
+
 namespace BlazorApp.Authentication
 {
     public class UserAccountService
     {
-        private List<UserAccount> _users;
+        private List<UserAccount> _users; //Create a list of users
 
         public UserAccountService()
         {
@@ -19,7 +21,7 @@ namespace BlazorApp.Authentication
                 {
                     using (var reader = cmd.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (reader.Read()) // Iterates through the results and adding user account objects to users_ list
                         {
                             _users.Add(new UserAccount
                             {
@@ -32,9 +34,9 @@ namespace BlazorApp.Authentication
             }
         }
 
-        public UserAccount? GetByUserName(string userName)
+        public UserAccount? GetByUserName(string userName) //Retrieve user account by username 
         {
-            return _users.FirstOrDefault(x => x.UserName == userName);
+            return _users.FirstOrDefault(x => x.UserName == userName); // search for specific username in _users-list or return null
         }
     }
 }

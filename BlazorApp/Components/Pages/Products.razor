@@ -64,11 +64,11 @@ else
 
         if (!string.IsNullOrEmpty(searchTerm))
         {
-            string[] searchKeywords = searchTerm.Split(' '); //If search term is not empty split by white space
+            string[] searchKeywords = searchTerm.Split(' '); 
 
             foreach (var product in allProducts)
             {
-                bool matchesAllKeywords = true; //Each product is set to true
+                bool matchesAllKeywords = true; 
 
                 foreach (var keyword in searchKeywords)
                 {
@@ -82,7 +82,7 @@ else
                         !(product.closedOrOpen?.ToLower().Contains(lowerKeyword) ?? false) &&
                         !(product.itemCondition?.ToLower().Contains(lowerKeyword) ?? false) &&
                         !(product.description?.ToLower().Contains(lowerKeyword) ?? false) &&
-                        !product.price.ToString().Contains(keyword)) // Dont need "??" cause won't return null
+                        !product.price.ToString().Contains(keyword)) 
                     {
                         matchesAllKeywords = false; //To remain true all brand, model.. etc. must be false
                         break;
@@ -100,6 +100,6 @@ else
             filteredProducts = allProducts;
         }
 
-        return filteredProducts;//Showing all products by default
+        return filteredProducts;
     }
 }

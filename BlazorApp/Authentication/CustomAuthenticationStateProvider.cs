@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
+// Retrieve and updates the authentication state based on session data
+
 namespace BlazorApp.Authentication
 {
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider

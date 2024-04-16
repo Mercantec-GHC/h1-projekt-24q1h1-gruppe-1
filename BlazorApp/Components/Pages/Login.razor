@@ -37,7 +37,7 @@
 
     private async Task Submit()
     {
-        var userAccount = UserAccountService.GetByUserName(model.username);
+        var userAccount = UserAccountService.GetByUserName(model.username); // alert message if useraccount returns null or password doesn't match
         if (userAccount == null || userAccount.Password != model.userpassword)
         {
             await js.InvokeVoidAsync("alert", "Invalid Username or Password");
@@ -52,3 +52,4 @@
         NavigationManager.NavigateTo("/myprofile", true);
     }
 }
+
