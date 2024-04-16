@@ -17,12 +17,12 @@
         <nav class="flex-column">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home @* KNAP FOR HOME *@
                 </NavLink>
             </div>
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="products">
-                    <span class="bi bi-basket2-fill-nested-nav-menu" aria-hidden="true"></span> Browse Products
+                    <span class="bi bi-basket2-fill-nested-nav-menu" aria-hidden="true"></span> Browse Products @* KNAP FOR BROWSE PRODUCTS *@
                 </NavLink>
             </div>
             <!-- Show the create listing menu item, if user is logged in -->
@@ -30,7 +30,7 @@
                 <Authorized>
                     <div class="nav-item px-3">
                         <NavLink class="nav-link" href="createlisting">
-                            <span class="bi bi-plus-circle-fill-nested-nav-menu" aria-hidden="true"></span> Create Listing
+                            <span class="bi bi-plus-circle-fill-nested-nav-menu" aria-hidden="true"></span> Create Listing @* KNAP FOR CREATE LISTING *@
                         </NavLink>
                     </div>
                 </Authorized>
@@ -39,7 +39,7 @@
                 <Authorized>
                     <div class="nav-item px-3">
                         <NavLink class="nav-link" href="myprofile">
-                            <span class="bi bi-plus-circle-fill-nested-nav-menu" aria-hidden="true"></span> My Profile
+                            <span class="bi bi-plus-circle-fill-nested-nav-menu" aria-hidden="true"></span> My Profile @* KNAP FOR MY PROFILE *@
                         </NavLink>
                     </div>
                 </Authorized>
@@ -48,14 +48,19 @@
         <div class="nav-register-buttons">
             <AuthorizeView>
                 <NotAuthorized>
+
                     <button class="login-button">
-                        <div class="nav-item px-3"><NavLink class="nav-link" href="login">LOGIN</NavLink></div></button>
+                        <div class="nav-item px-3"><NavLink class="nav-link" href="login">LOGIN</NavLink></div> @* KNAP FOR LOGIN *@
+                    </button>
+
                     <button class="register-button">
-                        <div class="nav-item px-3"><NavLink class="nav-link" href="createuser">REGISTER</NavLink></div></button>
+                        <div class="nav-item px-3"><NavLink class="nav-link" href="createuser">REGISTER</NavLink></div> @* KNAP FOR REGISTER *@
+                    </button>
+
                 </NotAuthorized>
                 <Authorized>
                     <button class="logout-button">
-                        <div class="nav-item px-3"><NavLink class="nav-link" @onclick="Logout" href="javascript:void(0)">LOGOUT</NavLink></div>
+                        <div class="nav-item px-3"><NavLink class="nav-link" @onclick="Logout" href="javascript:void(0)">LOGOUT</NavLink></div> @* KNAP FOR LOGOUT *@
                     </button>
                 </Authorized>
             </AuthorizeView>
@@ -67,8 +72,11 @@
 {
     private async Task Logout()
     {
-        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
-        await customAuthStateProvider.UpdateAuthenticationState(null);
-        navManager.NavigateTo("/", true);
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider; 
+        // casting til CustomAuthenticationStateProvider fordi UpdateAuthenticationState ikke er en del af authStateProvider
+
+        await customAuthStateProvider.UpdateAuthenticationState(null); // sætter til "null" for at rydde AuthenticationStaten
+
+        navManager.NavigateTo("/", true); // smid brugeren tilbage på home page
     }
 }

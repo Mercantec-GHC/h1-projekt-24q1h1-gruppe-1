@@ -17,7 +17,7 @@
 else
 {
     <div class="grid-container">
-        @foreach (var headset in ProductToShow)
+        @foreach (var headset in ProductToShow) // looper i gennem liste med headsets og opretter en div med al info til dem hver
         {
             int productId = headset.id;
             <div class="card" style="width: 18rem;">
@@ -46,35 +46,35 @@ else
 
 @code {
     public string SearchTerm { get; set; } = "";
-    public List<Headset> ProductToShow; //List that will be displayed after filtering
+    public List<Headset> ProductToShow; // Liste der vil blive vist efter filtrering
 
-    protected override void OnInitialized() //intializing ProductToShow with allProducts injected into it
+    protected override void OnInitialized() // Initialiserer ProductToShow med alle produkter
     {
         ProductToShow = allProducts;
     }
 
     public void FilterAndUpdateHeadsets()
     {
-        ProductToShow = FilterBrand(allProducts, SearchTerm.ToLower()); //Updates productsToShow based on searchterms
+        ProductToShow = FilterBrand(allProducts, SearchTerm.ToLower()); // Opdaterer productsToShow baseret på søgning
     }
 
-    public List<Headset> FilterBrand(List<Headset> allProducts, string searchTerm)  //Filtering the products with the two parameters
+    public List<Headset> FilterBrand(List<Headset> allProducts, string searchTerm)  // Filtrerer produkterne med to parametre
     {
-        List<Headset> filteredProducts = new List<Headset>(); // Create list to hold the filtered products
+        List<Headset> filteredProducts = new List<Headset>(); // Laver liste til at holde på alle filtrerede produkter
 
         if (!string.IsNullOrEmpty(searchTerm))
         {
-            string[] searchKeywords = searchTerm.Split(' '); //If search term is not empty split by white space
+            string[] searchKeywords = searchTerm.Split(' '); // Splitter efter mellemrum, hvis der er flere ord
 
             foreach (var product in allProducts)
             {
-                bool matchesAllKeywords = true; //Each product is set to true
+                bool matchesAllKeywords = true; // Hvert produkt sættes til true
 
                 foreach (var keyword in searchKeywords)
                 {
-                    string lowerKeyword = keyword.ToLower(); //Iterates over each keyword in search terms and checks for a match
+                    string lowerKeyword = keyword.ToLower(); // Itererer over hvert ord og tjekker for match
 
-                    if (!(product.brand?.ToLower().Contains(lowerKeyword) ?? false) && //"?" Safe navigation avoid null exception, "??" return false if null, "!" set to true if not a match
+                    if (!(product.brand?.ToLower().Contains(lowerKeyword) ?? false) && // "??" for at undgå null exception
                         !(product.model?.ToLower().Contains(lowerKeyword) ?? false) &&
                         !(product.color?.ToLower().Contains(lowerKeyword) ?? false) &&
                         !(product.frequencyRange?.ToLower().Contains(lowerKeyword) ?? false) &&
@@ -82,16 +82,16 @@ else
                         !(product.closedOrOpen?.ToLower().Contains(lowerKeyword) ?? false) &&
                         !(product.itemCondition?.ToLower().Contains(lowerKeyword) ?? false) &&
                         !(product.description?.ToLower().Contains(lowerKeyword) ?? false) &&
-                        !product.price.ToString().Contains(keyword)) // Dont need "??" cause won't return null
+                        !product.price.ToString().Contains(keyword))
                     {
-                        matchesAllKeywords = false; //To remain true all brand, model.. etc. must be false
+                        matchesAllKeywords = false;
                         break;
                     }
                 }
 
                 if (matchesAllKeywords)
                 {
-                    filteredProducts.Add(product); //If all keywords match product is added to list
+                    filteredProducts.Add(product); // Hvis produktet matcher, så er det tilføjet til listen
                 }
             }
         }
@@ -100,6 +100,6 @@ else
             filteredProducts = allProducts;
         }
 
-        return filteredProducts;//Showing all products by default
+        return filteredProducts; // Viser alle produkter uanset hvad
     }
 }
