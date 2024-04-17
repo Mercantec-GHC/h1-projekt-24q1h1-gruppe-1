@@ -4,6 +4,7 @@ namespace BlazorApp.Authentication
 {
     public class UserAccountService
     {
+        // Creating a private list of UserAccount for saving user data
         private List<UserAccount> _users;
 
         public UserAccountService()
@@ -34,6 +35,7 @@ namespace BlazorApp.Authentication
 
         public UserAccount? GetByUserName(string userName)
         {
+            // This will return the UserAccount matching the username provided
             return _users.FirstOrDefault(x => x.UserName == userName);
         }
     }

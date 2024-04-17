@@ -29,26 +29,31 @@
 
 @code {
 
+    // Model class for providing the values in the inputs
     private class Model
     {
         public string username { get; set; }
         public string userpassword { get; set; }
     }
 
+    // We're creating an object of the model class
     private Model model = new Model();
 
     private async Task Submit()
     {
-        
-        
+        // Fetch the user data
         var userAccount = UserAccountService.GetByUserName(model.username);
         if (userAccount == null || userAccount.Password != model.userpassword)
         {
+            // In case the provided info is not correct, return error alert
             await js.InvokeVoidAsync("alert", "Invalid Username or Password");
             return;
         }
 
+        // We're creating an object of the CustomAuthenticationStateProvider casted from the injected AuthenticationStateProvider
         var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProverider;
+
+        // Then we call the UpdateAuthenticationState method to save the value in the session storage
         await customAuthStateProvider.UpdateAuthenticationState(new UserSession
         {
             UserName = userAccount.UserName

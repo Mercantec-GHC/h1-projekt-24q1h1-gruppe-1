@@ -1,5 +1,6 @@
 ﻿namespace BlazorApp.Authentication
 {
+    // Used for our UserAccountService
     public class UserAccount
     {
         public string UserName { get; set; }

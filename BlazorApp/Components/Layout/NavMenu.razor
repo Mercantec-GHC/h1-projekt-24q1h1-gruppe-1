@@ -46,6 +46,7 @@
             </AuthorizeView>
         </nav>
         <div class="nav-register-buttons">
+            <!-- Show the login & createuser menu item, if user is NOT logged in -->
             <AuthorizeView>
                 <NotAuthorized>
                     <button class="login-button">
@@ -67,6 +68,7 @@
 {
     private async Task Logout()
     {
+        // On logout set the userSession to null and navigate to "/"
         var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
         await customAuthStateProvider.UpdateAuthenticationState(null);
         navManager.NavigateTo("/", true);
