@@ -9,7 +9,7 @@
 
 @if (errors.Count > 0)
 {
-    @foreach (var error in errors)
+    @foreach (var error in errors) //if any errors it iterates through errors and display text of error
     {
         <div class="alert alert-danger" role="alert">
             @error
@@ -80,7 +80,7 @@
                     <select @bind="Color">
                         <option value="">Select a Color</option>
                         <option value="Red">Red</option>
-                        <option value="Rlue">Blue</option>
+                        <option value="Blue">Blue</option>
                         <option value="Other">Other</option>
                     </select>
                 </div>

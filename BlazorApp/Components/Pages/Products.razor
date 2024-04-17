@@ -46,7 +46,7 @@ else
 
 @code {
     public string SearchTerm { get; set; } = "";
-    public List<Headset> ProductToShow; //List that will be displayed after filtering
+    public List<Headset> ProductToShow; 
 
     protected override void OnInitialized() //intializing ProductToShow with allProducts injected into it
     {
@@ -84,7 +84,7 @@ else
                         !(product.description?.ToLower().Contains(lowerKeyword) ?? false) &&
                         !product.price.ToString().Contains(keyword)) 
                     {
-                        matchesAllKeywords = false; //To remain true all brand, model.. etc. must be false
+                        matchesAllKeywords = false; //To remain true all brand, model etc. must be false
                         break;
                     }
                 }
