@@ -1,6 +1,7 @@
 ﻿@page "/createlisting"
 @using Npgsql
 @using System.Drawing
+@using BlazorApp.Services
 @inject IConfiguration config
 @inject ICookie cookie
 @inject NavigationManager NavigationManager
@@ -270,7 +271,6 @@
     private string? Color { get; set; }
     private string? FrequencyRange { get; set; }
     private bool? Microphone { get; set; }
-    private string? TypeOfConnection { get; set; }
     private bool? NoiseCancellation { get; set; }
     private string? ClosedOrOpen { get; set; }
     private string? ItemCondition { get; set; }
@@ -325,15 +325,14 @@
             cmd.Connection = connection;
 
             cmd.CommandText = $@"
-            INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, TypeOfConnection, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, Type, Description, useraccountid)
-            VALUES(@Brand, @Model, @Color, @FrequencyRange, @Microphone, @TypeOfConnection, @NoiseCancellation, @ClosedOrOpen, @ItemCondition, @Price, @ImageUrl, @Type, @Description, {userId});";
+            INSERT INTO Headsets(Brand, Model, Color, FrequencyRange, Microphone, NoiseCancellation, ClosedOrOpen, ItemCondition, Price, ImageUrl, Type, Description, useraccountid)
+            VALUES(@Brand, @Model, @Color, @FrequencyRange, @Microphone, @NoiseCancellation, @ClosedOrOpen, @ItemCondition, @Price, @ImageUrl, @Type, @Description, {userId});";
 
             cmd.Parameters.AddWithValue("Brand", Brand ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Model", Model ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Color", Color ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("FrequencyRange", FrequencyRange ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("Microphone", Microphone ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("TypeOfConnection", TypeOfConnection ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("NoiseCancellation", NoiseCancellation ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("ClosedOrOpen", ClosedOrOpen ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("ItemCondition", ItemCondition ?? (object)DBNull.Value);

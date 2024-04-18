@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Domain_Models
 {
-    public abstract class Headset
+    public class Headset
     {
         public int id { get; set; }
-        //private static uint lastId = 0;
         public string Url { get; set; }
         public string brand { get; set; }
         public string model { get; set; }
@@ -25,42 +24,20 @@ namespace Domain_Models
         public string imageUrl { get; set; }
         public string description { get; set; }
 
-        public Headset(int id, string brand, string model, string color, string frequencyRange, bool microphone, string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
+        public Headset(int id, string brand, string model, string color, string frequencyRange, bool microphone, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
         {
-            //this.Url = $"headset/{lastId}";
-            //Id = lastId++;
             this.id = id;
             this.brand = brand;
             this.model = model;
             this.color = color;
             this.frequencyRange = frequencyRange;
             this.microphone = microphone;
-            this.typeOfConnection = typeOfConnection;
             this.noiseCancellation = noiseCancellation;
             this.closedOrOpen = closedOrOpen;
             this.itemCondition = itemCondition;
             this.price = price;
             this.imageUrl = imageUrl;
             this.description = description;
-        }
-    }
-    public class WiredHeadphones : Headset
-    {
-        public WiredHeadphones(int id, string brand, string model, string color, string frequencyRange, bool microphone,
-           string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
-           : base(id, brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
-        {
-
-        }
-    }
-
-    public class BluetoothHeadphones : Headset
-    {
-        public BluetoothHeadphones(int id, string brand, string model, string color, string frequencyRange, bool microphone,
-            string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
-            : base(id, brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
-        {
-
         }
     }
 }

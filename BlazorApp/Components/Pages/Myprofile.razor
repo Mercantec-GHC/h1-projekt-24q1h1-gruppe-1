@@ -58,19 +58,9 @@ else
 }
 
 @code {
-    // Instantiate a new instance of Headset to pull individual user headsets
-    public class ConcreteHeadset : Headset
-    {
-        public ConcreteHeadset(int id, string brand, string model, string color, string frequencyRange, bool microphone,
-            string typeOfConnection, bool noiseCancellation, string closedOrOpen, string itemCondition, int price, string imageUrl, string description)
-            : base(id, brand, model, color, frequencyRange, microphone, typeOfConnection, noiseCancellation, closedOrOpen, itemCondition, price, imageUrl, description)
-        {
-        }
-    }
 
-    public List<ConcreteHeadset> ProductToShow;
+    public List<Headset> ProductToShow;
 
-    private int? id { get; set; }
     private string? username { get; set; }
     private string? firstname { get; set; }
     private string? lastname { get; set; }
@@ -145,19 +135,18 @@ else
 
             using (var reader = await cmd.ExecuteReaderAsync())
             {
-                ProductToShow = new List<ConcreteHeadset>();
+                ProductToShow = new List<Headset>();
                 while (await reader.ReadAsync())
                 {
                     var price = reader.IsDBNull(reader.GetOrdinal("price")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("price"));
                     var id = reader.IsDBNull(reader.GetOrdinal("id")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("id"));
-                    var headset = new ConcreteHeadset(
+                    var headset = new Headset(
                         id ?? 0,
                         reader.IsDBNull(reader.GetOrdinal("brand")) ? null : reader.GetString(reader.GetOrdinal("brand")),
                         reader.IsDBNull(reader.GetOrdinal("model")) ? null : reader.GetString(reader.GetOrdinal("model")),
                         reader.IsDBNull(reader.GetOrdinal("color")) ? null : reader.GetString(reader.GetOrdinal("color")),
                         reader.IsDBNull(reader.GetOrdinal("frequencyRange")) ? null : reader.GetString(reader.GetOrdinal("frequencyRange")),
                         reader.IsDBNull(reader.GetOrdinal("microphone")) ? false : reader.GetBoolean(reader.GetOrdinal("microphone")),
-                        reader.IsDBNull(reader.GetOrdinal("typeOfConnection")) ? null : reader.GetString(reader.GetOrdinal("typeOfConnection")),
                         reader.IsDBNull(reader.GetOrdinal("noiseCancellation")) ? false : reader.GetBoolean(reader.GetOrdinal("noiseCancellation")),
                         reader.IsDBNull(reader.GetOrdinal("closedOrOpen")) ? null : reader.GetString(reader.GetOrdinal("closedOrOpen")),
                         reader.IsDBNull(reader.GetOrdinal("itemCondition")) ? null : reader.GetString(reader.GetOrdinal("itemCondition")),
